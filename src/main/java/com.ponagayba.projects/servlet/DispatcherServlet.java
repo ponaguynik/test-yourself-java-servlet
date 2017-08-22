@@ -5,6 +5,7 @@ import com.ponagayba.projects.exception.PageNotFoundException;
 import com.ponagayba.projects.factory.Factory;
 
 import javax.servlet.ServletException;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -23,6 +24,8 @@ public class DispatcherServlet extends HttpServlet {
     public void init() throws ServletException {
         controllerMap.put("GET/pages/", Factory.getHomePageController());
         controllerMap.put("GET/pages/home", Factory.getHomePageController());
+        controllerMap.put("GET/pages/signup", Factory.getSignUpPageController());
+        controllerMap.put("POST/pages/signup", Factory.getSignUpController());
     }
 
     @Override
@@ -62,6 +65,11 @@ public class DispatcherServlet extends HttpServlet {
 
     private void render(ModelAndView modelAndView, HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        if (modelAndView.getCookies() != null) {
+            for (Cookie cookie : modelAndView.getCookies()) {
+                response.addCookie(cookie);
+            }
+        }
         if (modelAndView.isRedirect()) {
             response.sendRedirect(modelAndView.getView());
         } else {

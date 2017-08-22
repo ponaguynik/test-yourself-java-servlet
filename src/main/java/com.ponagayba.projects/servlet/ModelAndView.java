@@ -1,5 +1,6 @@
 package com.ponagayba.projects.servlet;
 
+import javax.servlet.http.Cookie;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -8,6 +9,10 @@ public class ModelAndView {
     private String view;
     private Map<String, Object> attributes = new HashMap<>();
     private boolean redirect;
+    private Cookie[] cookies;
+
+    public ModelAndView() {
+    }
 
     public ModelAndView(String view) {
         this.view = view;
@@ -31,6 +36,14 @@ public class ModelAndView {
 
     public void setAttributes(Map<String, Object> attributes) {
         this.attributes = attributes;
+    }
+
+    public Cookie[] getCookies() {
+        return cookies;
+    }
+
+    public void setCookies(Cookie[] cookies) {
+        this.cookies = cookies;
     }
 
     public boolean isRedirect() {
