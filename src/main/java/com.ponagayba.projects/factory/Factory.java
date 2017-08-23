@@ -1,9 +1,6 @@
 package com.ponagayba.projects.factory;
 
-import com.ponagayba.projects.controller.Controller;
-import com.ponagayba.projects.controller.HomePageController;
-import com.ponagayba.projects.controller.SignUpController;
-import com.ponagayba.projects.controller.SignUpPageController;
+import com.ponagayba.projects.controller.*;
 import com.ponagayba.projects.dao.RoleDAO;
 import com.ponagayba.projects.dao.RoleDAOImpl;
 import com.ponagayba.projects.dao.UserDAO;
@@ -22,6 +19,26 @@ public class Factory {
         return new HomePageController();
     }
 
+    public static Controller getSignUpPageController() {
+        return new SignUpPageController();
+    }
+
+    public static Controller getSignUpController() {
+        return new SignUpController();
+    }
+
+    public static Controller getLoginPageController() {
+        return new LoginPageController();
+    }
+
+    public static Controller getLoginController() {
+        return new LoginController();
+    }
+
+    public static Controller getLogoutController() {
+        return new LogoutController();
+    }
+
     public static UserService getUserService() {
         return new UserServiceImpl(getUserDAO(), getRoleDAO());
     }
@@ -29,6 +46,7 @@ public class Factory {
     public static RoleService getRoleService() {
         return new RoleServiceImpl(getRoleDAO());
     }
+
 
     private static RoleDAO getRoleDAO() {
         return new RoleDAOImpl(getConnection());
@@ -47,13 +65,5 @@ public class Factory {
             throw new RuntimeException("Driver has not been initialized");
         }
         return connection;
-    }
-
-    public static Controller getSignUpPageController() {
-        return new SignUpPageController();
-    }
-
-    public static Controller getSignUpController() {
-        return new SignUpController();
     }
 }

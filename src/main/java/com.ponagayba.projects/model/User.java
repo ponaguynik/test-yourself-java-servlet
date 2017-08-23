@@ -20,6 +20,15 @@ public class User {
         this.password = password;
     }
 
+    public User(Integer id, String username, String password, String token, Integer lastResult, Integer bestResult) {
+        this.id = id;
+        this.username = username;
+        this.password = password;
+        this.token = token;
+        this.lastResult = lastResult;
+        this.bestResult = bestResult;
+    }
+
     public Integer getId() {
         return id;
     }

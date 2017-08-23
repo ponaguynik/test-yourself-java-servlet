@@ -1,7 +1,9 @@
 package com.ponagayba.projects.servlet;
 
 import javax.servlet.http.Cookie;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class ModelAndView {
@@ -9,7 +11,7 @@ public class ModelAndView {
     private String view;
     private Map<String, Object> attributes = new HashMap<>();
     private boolean redirect;
-    private Cookie[] cookies;
+    private List<Cookie> cookies = new ArrayList<>();
 
     public ModelAndView() {
     }
@@ -30,6 +32,10 @@ public class ModelAndView {
         attributes.put(name, value);
     }
 
+    public void addCookie(Cookie cookie) {
+        cookies.add(cookie);
+    }
+
     public Map<String, Object> getAttributes() {
         return attributes;
     }
@@ -38,11 +44,11 @@ public class ModelAndView {
         this.attributes = attributes;
     }
 
-    public Cookie[] getCookies() {
+    public List<Cookie> getCookies() {
         return cookies;
     }
 
-    public void setCookies(Cookie[] cookies) {
+    public void setCookies(List<Cookie> cookies) {
         this.cookies = cookies;
     }
 

@@ -40,4 +40,19 @@ public class UserServiceImpl implements UserService {
             userDAO.addRole(userDB.getId(), role);
         }
     }
+
+    @Override
+    public void updateToken(int userId, String token) throws SQLException {
+        userDAO.updateToken(userId, token);
+    }
+
+    @Override
+    public User findByToken(String token) throws SQLException {
+        return userDAO.findByToken(token);
+    }
+
+    @Override
+    public void removeToken(String token) throws SQLException {
+        userDAO.removeToken(token);
+    }
 }

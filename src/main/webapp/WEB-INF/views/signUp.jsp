@@ -6,11 +6,9 @@
 </jsp:include>
 <div id="login-form">
     <h2>Sign Up</h2>
-    <c:if test="${not empty requestScope.messages}">
-        <c:forEach items="${requestScope.messages}" var="message">
-            <br>
-            <p style="color: red;"><c:out value="${message}"/></p>
-        </c:forEach>
+        <c:if test="${requestScope.error != null}">
+        <br>
+        <p style="color: red;"><c:out value="${requestScope.error}"/></p>
     </c:if>
     <form action="<c:url value="/signup"/>" method="post">
         <div id="form-container" class="flex-container">

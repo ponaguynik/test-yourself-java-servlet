@@ -26,6 +26,9 @@ public class DispatcherServlet extends HttpServlet {
         controllerMap.put("GET/pages/home", Factory.getHomePageController());
         controllerMap.put("GET/pages/signup", Factory.getSignUpPageController());
         controllerMap.put("POST/pages/signup", Factory.getSignUpController());
+        controllerMap.put("GET/pages/login", Factory.getLoginPageController());
+        controllerMap.put("POST/pages/login", Factory.getLoginController());
+        controllerMap.put("POST/pages/logout", Factory.getLogoutController());
     }
 
     @Override
@@ -65,7 +68,7 @@ public class DispatcherServlet extends HttpServlet {
 
     private void render(ModelAndView modelAndView, HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        if (modelAndView.getCookies() != null) {
+        if (modelAndView.getCookies() != null && !modelAndView.getCookies().isEmpty()) {
             for (Cookie cookie : modelAndView.getCookies()) {
                 response.addCookie(cookie);
             }

@@ -13,4 +13,10 @@ public interface UserService {
     boolean userExists(String username) throws SQLException;
 
     void addNewUser(User user) throws SQLException;
+
+    void updateToken(int userId, String token) throws SQLException;
+
+    User findByToken(String token) throws SQLException;
+
+    void removeToken(String token) throws SQLException;
 }

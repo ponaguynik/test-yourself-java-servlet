@@ -18,10 +18,10 @@
 <body>
 <div id="content">
     <header class="flex-container">
-        <a href="<%= response.encodeURL("index.jsp") %>"><img src="${pageContext.request.contextPath}/resources/images/testyourself-logo.png" alt="TestYourself-logo"></a>
+        <a href="<c:url value="/home"/>"><img src="${pageContext.request.contextPath}/resources/images/testyourself-logo.png" alt="TestYourself-logo"></a>
     </header>
     <nav class="flex-container">
-        <a href="<%= response.encodeURL("index.jsp") %>">Home</a>
+        <a href="<c:url value="/home"/>">Home</a>
         <a href="<%= response.encodeURL("test.jsp") %>">Test</a>
         <a href="<%= response.encodeURL("results.jsp") %>">My Results</a>
         <a href="<%= response.encodeURL("about.jsp") %>">About</a>
@@ -29,13 +29,13 @@
             <a href="<%= response.encodeURL("addQuestion.jsp") %>">Add Question</a>
         </c:if>
         <c:choose>
-            <c:when test="${empty sessionScope.user}">
-                <a href="login.jsp" class="login-menu-item"><img src="${pageContext.request.contextPath}/resources/images/login.png" alt="Login"></a>
-            </c:when>
-            <c:otherwise>
-                <form class="login-menu-item" action="<%= response.encodeURL("logout") %>" method="post">
+            <c:when test="${cookie != null && cookie.TOKEN != null}">
+                <form class="login-menu-item" action="<c:url value="/logout"/> " method="post">
                     <input type="image" src="${pageContext.request.contextPath}/resources/images/logout.png" alt="Logout">
                 </form>
+            </c:when>
+            <c:otherwise>
+                <a href="<c:url value="/login"/>" class="login-menu-item"><img src="${pageContext.request.contextPath}/resources/images/login.png" alt="Login"></a>
             </c:otherwise>
         </c:choose>
     </nav>

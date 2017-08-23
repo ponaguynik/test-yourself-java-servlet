@@ -1,14 +1,14 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <jsp:include page="header.jsp">
-    <jsp:param name="css" value="signIn.css" />
+    <jsp:param name="css" value="login.css" />
     <jsp:param name="title" value="Login" />
 </jsp:include>
 <main>
     <h2>Sign In</h2>
-    <c:if test="${not empty requestScope.message}">
+    <c:if test="${requestScope.error != null}">
         <br>
-        <p style="color: red;"><c:out value="${requestScope.message}" /></p>
+        <p style="color: red;"><c:out value="${requestScope.error}" /></p>
     </c:if>
     <form action="<c:url value="/login"/> " method="post">
         <div class="form-container flex-container">

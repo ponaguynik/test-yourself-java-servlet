@@ -16,7 +16,25 @@ public class UserDAOImpl extends AbstractDAO implements UserDAO {
 
     @Override
     public User findById(int id) throws SQLException {
-        return null;
+        String query =
+                "SELECT username, password, token, last_result, best_result " +
+                "FROM test_yourself.user " +
+                "WHERE id=?";
+        PreparedStatement preparedStatement = connection.prepareStatement(query);
+        preparedStatement.setInt(1, id);
+        ResultSet resultSet = preparedStatement.executeQuery();
+        User user = null;
+        if (resultSet.next()) {
+            user = new User(
+                    id,
+                    resultSet.getString("username"),
+                    resultSet.getString("password"),
+                    resultSet.getString("token"),
+                    resultSet.getInt("last_result"),
+                    resultSet.getInt("best_result")
+            );
+        }
+        return user;
     }
 
     @Override
@@ -29,15 +47,18 @@ public class UserDAOImpl extends AbstractDAO implements UserDAO {
         preparedStatement.setString(1, username);
         preparedStatement.setString(2, password);
         ResultSet resultSet = preparedStatement.executeQuery();
-        User result = null;
+        User user = null;
         if (resultSet.next()) {
-            result = new User();
-            result.setId(resultSet.getInt("id"));
-            result.setToken(resultSet.getString("token"));
-            result.setUsername(username);
-            result.setPassword(password);
+            user = new User(
+                    resultSet.getInt("id"),
+                    username,
+                    password,
+                    resultSet.getString("token"),
+                    resultSet.getInt("last_result"),
+                    resultSet.getInt("best_result")
+            );
         }
-        return result;
+        return user;
     }
 
     @Override
@@ -70,6 +91,52 @@ public class UserDAOImpl extends AbstractDAO implements UserDAO {
         PreparedStatement preparedStatement = connection.prepareStatement(query);
         preparedStatement.setInt(1, userId);
         preparedStatement.setInt(2, role.getId());
+        preparedStatement.execute();
+    }
+
+    @Override
+    public void updateToken(int userId, String token) throws SQLException {
+        String query =
+                "UPDATE test_yourself.user " +
+                "SET token=? " +
+                "WHERE id=?";
+        PreparedStatement preparedStatement = connection.prepareStatement(query);
+        preparedStatement.setString(1, token);
+        preparedStatement.setInt(2, userId);
+        preparedStatement.execute();
+    }
+
+    @Override
+    public User findByToken(String token) throws SQLException {
+        String query =
+                "SELECT id, username, password, last_result, best_result " +
+                "FROM test_yourself.user " +
+                "WHERE token=?";
+        PreparedStatement preparedStatement = connection.prepareStatement(query);
+        preparedStatement.setString(1, token);
+        ResultSet resultSet = preparedStatement.executeQuery();
+        User user = null;
+        if (resultSet.next()) {
+            user = new User(
+                    resultSet.getInt("id"),
+                    resultSet.getString("username"),
+                    resultSet.getString("password"),
+                    token,
+                    resultSet.getInt("last_result"),
+                    resultSet.getInt("best_result")
+            );
+        }
+        return user;
+    }
+
+    @Override
+    public void removeToken(String token) throws SQLException {
+        String query =
+                "UPDATE test_yourself.user " +
+                "SET token=NULL " +
+                "WHERE token=?";
+        PreparedStatement preparedStatement = connection.prepareStatement(query);
+        preparedStatement.setString(1, token);
         preparedStatement.execute();
     }
 }
