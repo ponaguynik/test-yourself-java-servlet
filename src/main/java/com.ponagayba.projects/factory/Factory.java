@@ -1,14 +1,9 @@
 package com.ponagayba.projects.factory;
 
 import com.ponagayba.projects.controller.*;
-import com.ponagayba.projects.dao.RoleDAO;
-import com.ponagayba.projects.dao.RoleDAOImpl;
-import com.ponagayba.projects.dao.UserDAO;
-import com.ponagayba.projects.dao.UserDAOImpl;
-import com.ponagayba.projects.service.RoleService;
-import com.ponagayba.projects.service.RoleServiceImpl;
-import com.ponagayba.projects.service.UserService;
-import com.ponagayba.projects.service.UserServiceImpl;
+import com.ponagayba.projects.controller.test.*;
+import com.ponagayba.projects.dao.*;
+import com.ponagayba.projects.service.*;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -39,12 +34,37 @@ public class Factory {
         return new LogoutController();
     }
 
+    public static Controller getTestPageController() {
+        return new TestPageController();
+    }
+
+    public static Controller getTestController() {
+        return new TestController();
+    }
+
+    public static Controller getFinishTestController() {
+        return new FinishTestController();
+    }
+
+    public static Controller getCancelTestController() {
+        return new CancelTestController();
+    }
+
+    public static Controller getAnswerTestController() {
+        return new AnswerTestController();
+    }
+
+
     public static UserService getUserService() {
         return new UserServiceImpl(getUserDAO(), getRoleDAO());
     }
 
     public static RoleService getRoleService() {
         return new RoleServiceImpl(getRoleDAO());
+    }
+
+    public static QuestionService getQuestionService() {
+        return new QuestionServiceImpl(getQuestionDAO());
     }
 
 
@@ -56,6 +76,11 @@ public class Factory {
         return new UserDAOImpl(getConnection());
     }
 
+    private static QuestionDAO getQuestionDAO() {
+        return new QuestionDAOImpl(getConnection());
+    }
+
+
     private static Connection getConnection() {
         Connection connection;
         try {
@@ -66,4 +91,5 @@ public class Factory {
         }
         return connection;
     }
+
 }

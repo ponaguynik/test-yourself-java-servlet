@@ -5,10 +5,7 @@ import com.ponagayba.projects.exception.PageNotFoundException;
 import com.ponagayba.projects.factory.Factory;
 
 import javax.servlet.ServletException;
-import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.*;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
@@ -29,6 +26,12 @@ public class DispatcherServlet extends HttpServlet {
         controllerMap.put("GET/pages/login", Factory.getLoginPageController());
         controllerMap.put("POST/pages/login", Factory.getLoginController());
         controllerMap.put("POST/pages/logout", Factory.getLogoutController());
+        controllerMap.put("GET/pages/test/start", Factory.getTestPageController());
+        controllerMap.put("GET/pages/test", Factory.getTestController());
+        controllerMap.put("POST/pages/test", Factory.getTestController());
+        controllerMap.put("POST/pages/test/finish", Factory.getFinishTestController());
+        controllerMap.put("POST/pages/test/answer", Factory.getAnswerTestController());
+        controllerMap.put("POST/pages/test/cancel", Factory.getCancelTestController());
     }
 
     @Override
@@ -68,18 +71,36 @@ public class DispatcherServlet extends HttpServlet {
 
     private void render(ModelAndView modelAndView, HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        addCookies(modelAndView, response);
+        addSessionAttributes(modelAndView, request);
+        if (modelAndView.isRedirect()) {
+            response.sendRedirect(modelAndView.getView());
+        } else {
+            addAttributes(modelAndView, request);
+            request.getRequestDispatcher(PREFIX + modelAndView.getView() + SUFFIX).forward(request, response);
+        }
+    }
+
+    private void addCookies(ModelAndView modelAndView, HttpServletResponse response) {
         if (modelAndView.getCookies() != null && !modelAndView.getCookies().isEmpty()) {
             for (Cookie cookie : modelAndView.getCookies()) {
                 response.addCookie(cookie);
             }
         }
-        if (modelAndView.isRedirect()) {
-            response.sendRedirect(modelAndView.getView());
-        } else {
-            for (Map.Entry<String, Object> entry : modelAndView.getAttributes().entrySet()) {
-                request.setAttribute(entry.getKey(), entry.getValue());
+    }
+
+    private void addSessionAttributes(ModelAndView modelAndView, HttpServletRequest request) {
+        if (modelAndView.getSessionAttributes() != null && !modelAndView.getSessionAttributes().isEmpty()) {
+            HttpSession session = request.getSession();
+            for (Map.Entry<String, Object> entry : modelAndView.getSessionAttributes().entrySet()) {
+                session.setAttribute(entry.getKey(), entry.getValue());
             }
-            request.getRequestDispatcher(PREFIX + modelAndView.getView() + SUFFIX).forward(request, response);
+        }
+    }
+
+    private void addAttributes(ModelAndView modelAndView, HttpServletRequest request) {
+        for (Map.Entry<String, Object> entry : modelAndView.getAttributes().entrySet()) {
+            request.setAttribute(entry.getKey(), entry.getValue());
         }
     }
 }

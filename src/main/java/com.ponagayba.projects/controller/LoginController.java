@@ -27,7 +27,7 @@ public class LoginController implements Controller {
             result.addCookie(new Cookie("TOKEN", user.getToken()));
         } else {
             result.setView("login");
-            result.addAttribute("error", INCORRECT);
+            result.setAttribute("error", INCORRECT);
         }
         return result;
     }

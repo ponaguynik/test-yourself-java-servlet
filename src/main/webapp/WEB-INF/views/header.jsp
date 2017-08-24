@@ -22,11 +22,11 @@
     </header>
     <nav class="flex-container">
         <a href="<c:url value="/home"/>">Home</a>
-        <a href="<%= response.encodeURL("test.jsp") %>">Test</a>
-        <a href="<%= response.encodeURL("results.jsp") %>">My Results</a>
-        <a href="<%= response.encodeURL("about.jsp") %>">About</a>
-        <c:if test="${sessionScope.user.username == 'admin'}">
-            <a href="<%= response.encodeURL("addQuestion.jsp") %>">Add Question</a>
+        <a href="<c:url value="/test/start"/>">Test</a>
+        <a href="<c:url value="/results"/>">My Results</a>
+        <a href="<c:url value="/about"/>">About</a>
+        <c:if test="${requestScope.user.isAdmin()}">
+            <a href="<c:url value="/admin"/>">Admin Panel</a>
         </c:if>
         <c:choose>
             <c:when test="${cookie != null && cookie.TOKEN != null}">

@@ -9,8 +9,8 @@ import java.sql.SQLException;
 
 public class UserServiceImpl implements UserService {
 
-    private UserDAO userDAO;
-    private RoleDAO roleDAO;
+    private final UserDAO userDAO;
+    private final RoleDAO roleDAO;
 
     public UserServiceImpl(UserDAO userDAO, RoleDAO roleDAO) {
         this.userDAO = userDAO;
@@ -19,12 +19,20 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User findById(int id) throws SQLException {
-        return userDAO.findById(id);
+        User result = userDAO.findById(id);
+        if (result != null) {
+            result.setRoles(roleDAO.getUserRoles(result.getId()));
+        }
+        return result;
     }
 
     @Override
     public User getUser(String username, String password) throws SQLException {
-        return userDAO.getUser(username, password);
+        User result = userDAO.getUser(username, password);
+        if (result != null) {
+            result.setRoles(roleDAO.getUserRoles(result.getId()));
+        }
+        return result;
     }
 
     @Override
@@ -48,7 +56,11 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User findByToken(String token) throws SQLException {
-        return userDAO.findByToken(token);
+        User result = userDAO.findByToken(token);
+        if (result != null) {
+            result.setRoles(roleDAO.getUserRoles(result.getId()));
+        }
+        return result;
     }
 
     @Override

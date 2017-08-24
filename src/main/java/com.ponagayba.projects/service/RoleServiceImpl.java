@@ -7,7 +7,7 @@ import java.sql.SQLException;
 
 public class RoleServiceImpl implements RoleService {
 
-    private RoleDAO roleDAO;
+    private final RoleDAO roleDAO;
 
     public RoleServiceImpl(RoleDAO roleDAO) {
         this.roleDAO = roleDAO;

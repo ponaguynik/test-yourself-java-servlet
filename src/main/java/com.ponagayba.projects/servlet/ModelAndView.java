@@ -10,8 +10,9 @@ public class ModelAndView {
 
     private String view;
     private Map<String, Object> attributes = new HashMap<>();
-    private boolean redirect;
+    private Map<String, Object> sessionAttributes = new HashMap<>();
     private List<Cookie> cookies = new ArrayList<>();
+    private boolean redirect;
 
     public ModelAndView() {
     }
@@ -28,7 +29,7 @@ public class ModelAndView {
         this.view = view;
     }
 
-    public void addAttribute(String name, Object value) {
+    public void setAttribute(String name, Object value) {
         attributes.put(name, value);
     }
 
@@ -42,6 +43,18 @@ public class ModelAndView {
 
     public void setAttributes(Map<String, Object> attributes) {
         this.attributes = attributes;
+    }
+
+    public Map<String, Object> getSessionAttributes() {
+        return sessionAttributes;
+    }
+
+    public void setSessionAttribute(String name, Object value) {
+        sessionAttributes.put(name, value);
+    }
+
+    public Object getSessionAttribute(String name) {
+        return sessionAttributes.get(name);
     }
 
     public List<Cookie> getCookies() {

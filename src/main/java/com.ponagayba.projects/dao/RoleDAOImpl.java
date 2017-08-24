@@ -6,6 +6,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class RoleDAOImpl extends AbstractDAO implements RoleDAO {
 
@@ -29,5 +31,26 @@ public class RoleDAOImpl extends AbstractDAO implements RoleDAO {
             );
         }
         return null;
+    }
+
+    @Override
+    public List<Role> getUserRoles(int userId) throws SQLException {
+        String query =
+                "SELECT r.id, r.name " +
+                "FROM test_yourself.user u " +
+                "JOIN test_yourself.user_to_role ur ON ur.user_id=u.id " +
+                "JOIN test_yourself.role r ON r.id=ur.role_id " +
+                "WHERE u.id=?";
+        PreparedStatement preparedStatement = connection.prepareStatement(query);
+        preparedStatement.setInt(1, userId);
+        ResultSet resultSet = preparedStatement.executeQuery();
+        List<Role> result = new ArrayList<>();
+        while (resultSet.next()) {
+            result.add(new Role(
+                    resultSet.getInt("id"),
+                    resultSet.getString("name")
+            ));
+        }
+        return result;
     }
 }

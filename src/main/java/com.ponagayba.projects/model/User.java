@@ -11,6 +11,7 @@ public class User {
     private Integer lastResult;
     private Integer bestResult;
     private List<Role> roles;
+    private boolean admin;
 
     public User() {
     }
@@ -89,7 +90,12 @@ public class User {
         return roles;
     }
 
+    public boolean isAdmin() {
+        return admin;
+    }
+
     public void setRoles(List<Role> roles) {
+        admin = roles.contains(new Role(0, "admin"));
         this.roles = roles;
     }
 }

@@ -26,10 +26,10 @@ public class SignUpController implements Controller {
             result.setRedirect(true);
             addNewUser(username, password);
             result.setView("login");
-            result.addAttribute("message", "User has been successfully created!");
+            result.setAttribute("message", "User has been successfully created!");
         } else {
             result.setView("signUp");
-            result.addAttribute("error", validationResult);
+            result.setAttribute("error", validationResult);
         }
         return result;
     }

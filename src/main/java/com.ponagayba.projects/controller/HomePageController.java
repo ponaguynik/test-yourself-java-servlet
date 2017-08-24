@@ -21,7 +21,7 @@ public class HomePageController implements Controller {
                 if (cookie.getName().equalsIgnoreCase("TOKEN")) {
                     User user = Factory.getUserService().findByToken(cookie.getValue());
                     if (user != null) {
-                        result.addAttribute("user", user);
+                        result.setAttribute("user", user);
                     }
                 }
             }
