@@ -22,4 +22,6 @@ public interface UserDAO {
     User findByToken(String token) throws SQLException;
 
     void removeToken(String token) throws SQLException;
+
+    void updateResults(User user) throws SQLException;
 }

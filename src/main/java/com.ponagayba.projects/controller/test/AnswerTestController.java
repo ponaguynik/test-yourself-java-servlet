@@ -34,7 +34,7 @@ public class AnswerTestController implements Controller {
 
     private int getNextQuestionNum(Test test) {
         List<Question> questions = test.getQuestions();
-        int nextNum = test.getCurrentQn().getNum()+1;
+        int nextNum = test.getCurrentQn().getNum() + 1;
         try {
             questions.get(nextNum-1);
         } catch (IndexOutOfBoundsException e) {

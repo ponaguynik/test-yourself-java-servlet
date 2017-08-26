@@ -68,6 +68,14 @@ public class Factory {
         return new QuestionServiceImpl(getQuestionDAO());
     }
 
+    public static TestService getTestService() {
+        return new TestServiceImpl();
+    }
+
+    public static TestResultService getTestResultService() {
+        return new TestResultServiceImpl(getTestResultDAO());
+    }
+
 
     private static RoleDAO getRoleDAO() {
         return new RoleDAOImpl(getConnection());
@@ -81,6 +89,10 @@ public class Factory {
         return new QuestionDAOImpl(getConnection());
     }
 
+    private static TestResultDAO getTestResultDAO() {
+        return new TestResultDAOImpl(getConnection());
+    }
+
 
     private static Connection getConnection() {
         Connection connection;
@@ -92,5 +104,4 @@ public class Factory {
         }
         return connection;
     }
-
 }

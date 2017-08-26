@@ -139,4 +139,17 @@ public class UserDAOImpl extends AbstractDAO implements UserDAO {
         preparedStatement.setString(1, token);
         preparedStatement.execute();
     }
+
+    @Override
+    public void updateResults(User user) throws SQLException {
+        String query =
+                "UPDATE test_yourself.user " +
+                "SET last_result=?, best_result=? " +
+                "WHERE id=?";
+        PreparedStatement preparedStatement = connection.prepareStatement(query);
+        preparedStatement.setInt(1, user.getLastResult());
+        preparedStatement.setInt(2, user.getLastResult());
+        preparedStatement.setInt(3, user.getBestResult());
+        preparedStatement.executeUpdate();
+    }
 }

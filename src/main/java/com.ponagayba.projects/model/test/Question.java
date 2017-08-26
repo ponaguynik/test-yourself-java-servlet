@@ -14,15 +14,6 @@ public class Question {
     private boolean answered;
     private boolean active;
 
-    public Question(Integer id, String question, String code, String[] choice, String choiceType, String[] answers) {
-        this.id = id;
-        this.question = question;
-        this.code = code;
-        this.choiceType = choiceType;
-        this.choice = choice;
-        this.answers = answers;
-    }
-
     public int getNum() {
         return num;
     }

@@ -66,16 +66,8 @@ public class User {
         return lastResult;
     }
 
-    public void setLastResult(int lastResult) {
-        this.lastResult = lastResult;
-    }
-
     public int getBestResult() {
         return bestResult;
-    }
-
-    public void setBestResult(int bestResult) {
-        this.bestResult = bestResult;
     }
 
     public void setLastResult(Integer lastResult) {

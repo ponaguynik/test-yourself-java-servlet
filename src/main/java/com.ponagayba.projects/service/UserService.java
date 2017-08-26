@@ -1,6 +1,7 @@
 package com.ponagayba.projects.service;
 
 import com.ponagayba.projects.model.User;
+import com.ponagayba.projects.model.test.TestResult;
 
 import java.sql.SQLException;
 
@@ -19,4 +20,6 @@ public interface UserService {
     User findByToken(String token) throws SQLException;
 
     void removeToken(String token) throws SQLException;
+
+    void updateResults(User user, TestResult testResult) throws SQLException;
 }

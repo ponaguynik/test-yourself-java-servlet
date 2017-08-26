@@ -2,8 +2,10 @@ package com.ponagayba.projects.service;
 
 import com.ponagayba.projects.dao.RoleDAO;
 import com.ponagayba.projects.dao.UserDAO;
+import com.ponagayba.projects.factory.Factory;
 import com.ponagayba.projects.model.Role;
 import com.ponagayba.projects.model.User;
+import com.ponagayba.projects.model.test.TestResult;
 
 import java.sql.SQLException;
 
@@ -66,5 +68,15 @@ public class UserServiceImpl implements UserService {
     @Override
     public void removeToken(String token) throws SQLException {
         userDAO.removeToken(token);
+    }
+
+    @Override
+    public void updateResults(User user, TestResult testResult) throws SQLException {
+        int lastResult = Factory.getTestService().percentageOfCorrectAnswers(testResult.getQuestions());
+        user.setLastResult(lastResult);
+        if (user.getLastResult() > user.getBestResult()) {
+            user.setBestResult(user.getLastResult());
+        }
+        userDAO.updateResults(user);
     }
 }

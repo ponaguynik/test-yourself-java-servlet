@@ -2,12 +2,14 @@ package com.ponagayba.projects.controller.test;
 
 import com.ponagayba.projects.controller.Controller;
 import com.ponagayba.projects.factory.Factory;
+import com.ponagayba.projects.model.User;
 import com.ponagayba.projects.model.test.Question;
 import com.ponagayba.projects.model.test.Test;
 import com.ponagayba.projects.service.QuestionService;
 import com.ponagayba.projects.servlet.ModelAndView;
 
 import javax.servlet.ServletException;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
@@ -20,17 +22,27 @@ public class TestController implements Controller {
     public ModelAndView process(HttpServletRequest request) throws ServletException, IOException, SQLException {
         ModelAndView result = new ModelAndView("test");
         if (request.getSession().getAttribute("test") == null) {
-            prepareTest(result);
+            prepareTest(request, result);
         }
         setCurrentQuestion(request, result);
         return result;
     }
 
-    private void prepareTest(ModelAndView mv) throws SQLException {
+    private void prepareTest(HttpServletRequest request, ModelAndView mv) throws SQLException {
         QuestionService questionService = Factory.getQuestionService();
+        User user = null;
+        for (Cookie cookie : request.getCookies()) {
+            if (cookie.getName().equalsIgnoreCase("token")) {
+                user = Factory.getUserService().findByToken(cookie.getValue());
+            }
+        }
+        if (user == null) {
+            throw new RuntimeException("User not found");
+        }
         List<Question> questions = questionService.getAll();
         List<Question> randomQuestions = questionService.getRandomQuestions(questions, 10);
         Test test = new Test();
+        test.setUserId(user.getId());
         test.setQuestions(randomQuestions);
         test.setStartTime(System.nanoTime());
         mv.setSessionAttribute("test", test);

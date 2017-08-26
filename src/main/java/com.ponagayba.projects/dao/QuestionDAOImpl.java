@@ -24,14 +24,13 @@ public class QuestionDAOImpl extends AbstractDAO implements QuestionDAO {
         ResultSet resultSet = statement.executeQuery(query);
         List<Question> result = new ArrayList<>();
         while (resultSet.next()) {
-            Question question = new Question(
-                    resultSet.getInt("id"),
-                    resultSet.getString("question"),
-                    resultSet.getString("code"),
-                    resultSet.getString("choice").split("&"),
-                    resultSet.getString("choice_type"),
-                    resultSet.getString("answer").split("&")
-            );
+            Question question = new Question();
+            question.setId(resultSet.getInt("id"));
+            question.setQuestion(resultSet.getString("question"));
+            question.setCode(resultSet.getString("code"));
+            question.setChoice(resultSet.getString("choice").split("&"));
+            question.setChoiceType(resultSet.getString("choice_type"));
+            question.setCorrectAnswers(resultSet.getString("answer").split("&"));
             result.add(question);
         }
         return result;

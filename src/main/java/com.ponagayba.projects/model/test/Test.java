@@ -1,16 +1,26 @@
 package com.ponagayba.projects.model.test;
 
+
 import java.util.ArrayList;
 import java.util.List;
 
 public class Test {
 
+    private Integer userId;
     private List<Question> questions = new ArrayList<>();
     private Question currentQn;
     private long startTime;
 
     public List<Question> getQuestions() {
         return questions;
+    }
+
+    public Integer getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Integer userId) {
+        this.userId = userId;
     }
 
     public void setQuestions(List<Question> questions) {
