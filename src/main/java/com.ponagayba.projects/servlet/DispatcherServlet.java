@@ -31,7 +31,7 @@ public class DispatcherServlet extends HttpServlet {
         controllerMap.put("POST/pages/test", Factory.getTestController());
         controllerMap.put("POST/pages/test/finish", Factory.getFinishTestController());
         controllerMap.put("POST/pages/test/answer", Factory.getAnswerTestController());
-        controllerMap.put("POST/pages/test/cancel", Factory.getCancelTestController());
+        controllerMap.put("POST/pages/test/cancel", Factory.getCancelAnswerTestController());
     }
 
     @Override

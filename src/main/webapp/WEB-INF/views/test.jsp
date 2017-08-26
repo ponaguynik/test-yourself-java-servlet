@@ -22,7 +22,7 @@
         }
     }
 </script>
-<c:if test="${sessionScope.questions == null}">
+<c:if test="${sessionScope.test.questions == null}">
     <form id="testForm" action="<c:url value="/test"/>" method="get">
     </form>
     <form id="homeForm" action="<c:url value="/home"/>" method="get">
@@ -37,7 +37,7 @@
 </c:if>
 <aside class="questions">
     <form action="<c:url value="/test"/>" method="post">
-        <c:forEach items="${sessionScope.questions}" var="question">
+        <c:forEach items="${sessionScope.test.questions}" var="question">
             <c:choose>
                 <c:when test="${question.active}">
                     <input class="btn active" type="submit" name="qnNum" value="${question.num}">
@@ -61,10 +61,10 @@
 </aside>
 <main class="question-main">
     <div class="question">
-        <p><c:out value="${sessionScope.currentQn.question}"/></p>
-        <c:if test="${sessionScope.currentQn.code != null}">
+        <p><c:out value="${sessionScope.test.currentQn.question}"/></p>
+        <c:if test="${sessionScope.test.currentQn.code != null}">
             <br>
-            <pre><code class="java"><c:out value="${sessionScope.currentQn.code}"/></code></pre>
+            <pre><code class="java"><c:out value="${sessionScope.test.currentQn.code}"/></code></pre>
         </c:if>
     </div>
     <br>
@@ -74,10 +74,10 @@
             <br>
         </c:if>
         <c:choose>
-            <c:when test="${!sessionScope.currentQn.answered}">
+            <c:when test="${!sessionScope.test.currentQn.answered}">
                 <form action="<c:url value="/test/answer"/>" method="post">
-                    <c:forEach items="${sessionScope.currentQn.choice}" var="item" varStatus="count">
-                        <input id="opt${count.index+1}" type="${sessionScope.currentQn.choiceType}" name="answer" value="${count.index+1}">
+                    <c:forEach items="${sessionScope.test.currentQn.choice}" var="item" varStatus="count">
+                        <input id="opt${count.index+1}" type="${sessionScope.test.currentQn.choiceType}" name="answer" value="${count.index+1}">
                         <label for="opt${count.index+1}">${item}</label>
                         <br>
                     </c:forEach>
@@ -87,19 +87,19 @@
             </c:when>
             <c:otherwise>
                 <form action="<c:url value="/test/cancel"/>" method="post">
-                    <c:forEach items="${sessionScope.currentQn.choice}" var="item" varStatus="count">
+                    <c:forEach items="${sessionScope.test.currentQn.choice}" var="item" varStatus="count">
                         <c:set var="contains" value="false" />
-                        <c:forEach var="itm" items="${sessionScope.currentQn.answers}">
+                        <c:forEach var="itm" items="${sessionScope.test.currentQn.answers}">
                             <c:if test="${count.index+1 eq itm}">
                                 <c:set var="contains" value="true"/>
                             </c:if>
                         </c:forEach>
                         <c:choose>
                             <c:when test="${contains}">
-                                <input id="opt${count.index+1}" type="${sessionScope.currentQn.choiceType}" name="answer" value="${count.index+1}" checked disabled>
+                                <input id="opt${count.index+1}" type="${sessionScope.test.currentQn.choiceType}" name="answer" value="${count.index+1}" checked disabled>
                             </c:when>
                             <c:otherwise>
-                                <input id="opt${count.index+1}" type="${sessionScope.currentQn.choiceType}" name="answer" value="${count.index+1}" disabled>
+                                <input id="opt${count.index+1}" type="${sessionScope.test.currentQn.choiceType}" name="answer" value="${count.index+1}" disabled>
                             </c:otherwise>
                         </c:choose>
                         <label for="opt${count.index+1}">${item}</label>

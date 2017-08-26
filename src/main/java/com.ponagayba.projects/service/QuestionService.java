@@ -10,4 +10,8 @@ public interface QuestionService {
     List<Question> getAll() throws SQLException;
 
     List<Question> getRandomQuestions(List<Question> questions, int num);
+
+    void processAnswers(Question question, String[] answers);
+
+    void resetAnswers(Question question);
 }

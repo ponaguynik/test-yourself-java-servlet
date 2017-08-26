@@ -1,5 +1,6 @@
-package com.ponagayba.projects.controller;
+package com.ponagayba.projects.controller.user;
 
+import com.ponagayba.projects.controller.Controller;
 import com.ponagayba.projects.servlet.ModelAndView;
 
 import javax.servlet.ServletException;

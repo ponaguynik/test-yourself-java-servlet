@@ -3,6 +3,7 @@ package com.ponagayba.projects.controller.test;
 import com.ponagayba.projects.controller.Controller;
 import com.ponagayba.projects.factory.Factory;
 import com.ponagayba.projects.model.test.Question;
+import com.ponagayba.projects.model.test.Test;
 import com.ponagayba.projects.service.QuestionService;
 import com.ponagayba.projects.servlet.ModelAndView;
 
@@ -18,7 +19,7 @@ public class TestController implements Controller {
     @Override
     public ModelAndView process(HttpServletRequest request) throws ServletException, IOException, SQLException {
         ModelAndView result = new ModelAndView("test");
-        if (request.getSession().getAttribute("questions") == null) {
+        if (request.getSession().getAttribute("test") == null) {
             prepareTest(result);
         }
         setCurrentQuestion(request, result);
@@ -29,8 +30,10 @@ public class TestController implements Controller {
         QuestionService questionService = Factory.getQuestionService();
         List<Question> questions = questionService.getAll();
         List<Question> randomQuestions = questionService.getRandomQuestions(questions, 10);
-        mv.setSessionAttribute("questions", randomQuestions);
-        mv.setSessionAttribute("startTime", System.nanoTime());
+        Test test = new Test();
+        test.setQuestions(randomQuestions);
+        test.setStartTime(System.nanoTime());
+        mv.setSessionAttribute("test", test);
     }
 
     private int getQuestionNum(HttpServletRequest request) {
@@ -49,21 +52,18 @@ public class TestController implements Controller {
 
     private void setCurrentQuestion(HttpServletRequest request, ModelAndView mv) {
         int qnNum = getQuestionNum(request);
-
         HttpSession session = request.getSession();
-        List<Question> questions = (List<Question>) session.getAttribute("questions");
-        if (questions == null) {
-            questions = (List<Question>) mv.getSessionAttribute("questions");
+        Test test = (Test) session.getAttribute("test");
+        if (test == null) {
+            test = (Test) mv.getSessionAttribute("test");
         }
-        for (Question question : questions) {
+        for (Question question : test.getQuestions()) {
             if (question.getNum() == qnNum) {
                 question.setActive(true);
             } else {
                 question.setActive(false);
             }
         }
-
-        //Set current question to the session scope.
-        mv.setSessionAttribute("currentQn", questions.get(qnNum-1));
+        test.setCurrentQn(test.getQuestions().get(qnNum-1));
     }
 }

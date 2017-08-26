@@ -2,6 +2,7 @@ package com.ponagayba.projects.factory;
 
 import com.ponagayba.projects.controller.*;
 import com.ponagayba.projects.controller.test.*;
+import com.ponagayba.projects.controller.user.*;
 import com.ponagayba.projects.dao.*;
 import com.ponagayba.projects.service.*;
 
@@ -46,8 +47,8 @@ public class Factory {
         return new FinishTestController();
     }
 
-    public static Controller getCancelTestController() {
-        return new CancelTestController();
+    public static Controller getCancelAnswerTestController() {
+        return new CancelAnswerTestController();
     }
 
     public static Controller getAnswerTestController() {

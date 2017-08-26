@@ -5,6 +5,7 @@ import com.ponagayba.projects.model.test.Question;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 
@@ -39,5 +40,23 @@ public class QuestionServiceImpl implements QuestionService {
             copy.remove(random);
         }
         return result;
+    }
+
+    @Override
+    public void processAnswers(Question question, String[] answers) {
+        question.setAnswers(answers);
+        question.setAnswered(true);
+        if (Arrays.equals(answers, question.getCorrectAnswers())) {
+            question.setCorrect(true);
+        } else {
+            question.setCorrect(false);
+        }
+    }
+
+    @Override
+    public void resetAnswers(Question question) {
+        question.setAnswered(false);
+        question.setAnswers(null);
+        question.setCorrect(false);
     }
 }
