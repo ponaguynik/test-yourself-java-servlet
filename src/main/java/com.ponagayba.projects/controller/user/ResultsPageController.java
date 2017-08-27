@@ -17,7 +17,7 @@ public class ResultsPageController implements Controller {
 
     @Override
     public ModelAndView process(HttpServletRequest request) throws ServletException, IOException, SQLException {
-        ModelAndView result = new ModelAndView("results");
+        ModelAndView result = new ModelAndView("user/results");
         User user = (User) request.getAttribute("user");
         List<TestResult> results = Factory.getTestResultService().getUserResults(user.getId());
         Collections.reverse(results);

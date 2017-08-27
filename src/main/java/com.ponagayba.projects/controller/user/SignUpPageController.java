@@ -11,6 +11,6 @@ public class SignUpPageController implements Controller {
 
     @Override
     public ModelAndView process(HttpServletRequest request) throws ServletException, IOException {
-        return new ModelAndView("signUp");
+        return new ModelAndView("user/signUp");
     }
 }

@@ -16,7 +16,7 @@ public class AnswerTestController implements Controller {
 
     @Override
     public ModelAndView process(HttpServletRequest request) throws ServletException, IOException, SQLException {
-        ModelAndView result = new ModelAndView("test");
+        ModelAndView result = new ModelAndView("test/test");
         String[] answers = request.getParameterValues("answer");
         if (answers == null) {
             result.setAttribute("message", "Choose at least one option.");

@@ -15,7 +15,7 @@ public class CancelAnswerTestController implements Controller {
 
     @Override
     public ModelAndView process(HttpServletRequest request) throws ServletException, IOException, SQLException {
-        ModelAndView result = new ModelAndView("test");
+        ModelAndView result = new ModelAndView("test/test");
         Test test = (Test) request.getSession().getAttribute("test");
         Question currentQn = test.getCurrentQn();
         Factory.getQuestionService().resetAnswers(currentQn);

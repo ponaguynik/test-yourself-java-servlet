@@ -24,4 +24,6 @@ public interface UserDAO {
     void removeToken(String token) throws SQLException;
 
     void updateResults(User user) throws SQLException;
+
+    User findByEmail(String email) throws SQLException;
 }

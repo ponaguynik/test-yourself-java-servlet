@@ -15,6 +15,9 @@
             <label for="username-input">Username:</label>
             <input id="username-input" type="text" name="username" maxlength="15" required>
             <br>
+            <label for="email-input">Email:</label>
+            <input id="email-input" type="email" name="email" maxlength="30" required>
+            <br>
             <label for="password-input">Password:</label>
             <input id="password-input" type="password" name="password" maxlength="15" required>
             <br>
@@ -22,7 +25,7 @@
             <input id="conf-password-input" type="password" name="confPassword" maxlength="15" required>
             <br>
             <input id="submit" type="submit" value="Confirm">
-            <a href="login.jsp" id="sign-in">Sign In</a>
+            <a href="<c:url value="/login"/>" id="sign-in">Sign In</a>
         </div>
     </form>
 </div>

@@ -19,7 +19,7 @@ public class TestController implements Controller {
 
     @Override
     public ModelAndView process(HttpServletRequest request) throws ServletException, IOException, SQLException {
-        ModelAndView result = new ModelAndView("test");
+        ModelAndView result = new ModelAndView("test/test");
         if (request.getSession().getAttribute("test") == null) {
             prepareTest(request, result);
         }

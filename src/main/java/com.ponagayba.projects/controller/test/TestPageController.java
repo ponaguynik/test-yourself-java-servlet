@@ -12,6 +12,6 @@ public class TestPageController implements Controller {
 
     @Override
     public ModelAndView process(HttpServletRequest request) throws ServletException, IOException, SQLException {
-        return new ModelAndView("test");
+        return new ModelAndView("test/test");
     }
 }

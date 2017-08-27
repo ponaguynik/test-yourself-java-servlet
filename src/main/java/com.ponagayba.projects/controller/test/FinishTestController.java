@@ -22,11 +22,11 @@ public class FinishTestController implements Controller {
         TestService testService = Factory.getTestService();
         Test test = (Test) request.getSession().getAttribute("test");
         if (!finishTestAnyway(request, result, testService)) {
-            result.setView("test");
+            result.setView("test/test");
             return result;
         }
         TestResult testResult = testService.generateTestResult(test);
-        result.setView("testResult");
+        result.setView("test/testResult");
         result.setAttribute("testResult", testResult);
         updateUserResults(testResult);
         request.getSession().setAttribute("test", null);

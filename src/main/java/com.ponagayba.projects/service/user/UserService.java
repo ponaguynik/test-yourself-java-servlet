@@ -25,4 +25,6 @@ public interface UserService {
     void updateResults(User user, TestResult testResult) throws SQLException;
 
     User getUserFromCookies(Cookie[] cookies) throws SQLException;
+
+    boolean checkEmail(String email) throws SQLException;
 }

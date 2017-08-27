@@ -18,7 +18,7 @@ public class UserDAOImpl extends AbstractDAO implements UserDAO {
     @Override
     public User findById(int id) throws SQLException {
         String query =
-                "SELECT username, password, token, last_result, best_result " +
+                "SELECT username, email, password, token, last_result, best_result " +
                 "FROM test_yourself.user " +
                 "WHERE id=?";
         PreparedStatement preparedStatement = connection.prepareStatement(query);
@@ -29,6 +29,7 @@ public class UserDAOImpl extends AbstractDAO implements UserDAO {
             user = new User(
                     id,
                     resultSet.getString("username"),
+                    resultSet.getString("email"),
                     resultSet.getString("password"),
                     resultSet.getString("token"),
                     resultSet.getInt("last_result"),
@@ -41,7 +42,7 @@ public class UserDAOImpl extends AbstractDAO implements UserDAO {
     @Override
     public User getUser(String username, String password) throws SQLException {
         String query =
-                "SELECT id, token, last_result, best_result " +
+                "SELECT id, email, token, last_result, best_result " +
                 "FROM test_yourself.user " +
                 "WHERE username=? AND password=?";
         PreparedStatement preparedStatement = connection.prepareStatement(query);
@@ -53,6 +54,7 @@ public class UserDAOImpl extends AbstractDAO implements UserDAO {
             user = new User(
                     resultSet.getInt("id"),
                     username,
+                    resultSet.getString("email"),
                     password,
                     resultSet.getString("token"),
                     resultSet.getInt("last_result"),
@@ -66,7 +68,7 @@ public class UserDAOImpl extends AbstractDAO implements UserDAO {
     public boolean userExists(String username) throws SQLException {
         String query =
                 "SELECT id FROM test_yourself.user " +
-                "WHERE username=?";
+                "WHERE username=?;";
         PreparedStatement preparedStatement = connection.prepareStatement(query);
         preparedStatement.setString(1, username);
         ResultSet resultSet = preparedStatement.executeQuery();
@@ -76,11 +78,12 @@ public class UserDAOImpl extends AbstractDAO implements UserDAO {
     @Override
     public void create(User user) throws SQLException {
         String query =
-                "INSERT INTO test_yourself.user(username, password) " +
-                "VALUES(?, ?)";
+                "INSERT INTO test_yourself.user(username, email, password) " +
+                "VALUES(?, ?, ?);";
         PreparedStatement preparedStatement = connection.prepareStatement(query);
         preparedStatement.setString(1, user.getUsername());
-        preparedStatement.setString(2, user.getPassword());
+        preparedStatement.setString(2, user.getEmail());
+        preparedStatement.setString(3, user.getPassword());
         preparedStatement.execute();
     }
 
@@ -88,7 +91,7 @@ public class UserDAOImpl extends AbstractDAO implements UserDAO {
     public void addRole(int userId, Role role) throws SQLException {
         String query =
                 "INSERT INTO test_yourself.user_to_role(user_id, role_id) " +
-                "VALUES(?, ?)";
+                "VALUES(?, ?);";
         PreparedStatement preparedStatement = connection.prepareStatement(query);
         preparedStatement.setInt(1, userId);
         preparedStatement.setInt(2, role.getId());
@@ -110,7 +113,7 @@ public class UserDAOImpl extends AbstractDAO implements UserDAO {
     @Override
     public User findByToken(String token) throws SQLException {
         String query =
-                "SELECT id, username, password, last_result, best_result " +
+                "SELECT id, username, email, password, last_result, best_result " +
                 "FROM test_yourself.user " +
                 "WHERE token=?";
         PreparedStatement preparedStatement = connection.prepareStatement(query);
@@ -121,6 +124,7 @@ public class UserDAOImpl extends AbstractDAO implements UserDAO {
             user = new User(
                     resultSet.getInt("id"),
                     resultSet.getString("username"),
+                    resultSet.getString("email"),
                     resultSet.getString("password"),
                     token,
                     resultSet.getInt("last_result"),
@@ -152,5 +156,29 @@ public class UserDAOImpl extends AbstractDAO implements UserDAO {
         preparedStatement.setInt(2, user.getBestResult());
         preparedStatement.setInt(3, user.getId());
         preparedStatement.executeUpdate();
+    }
+
+    @Override
+    public User findByEmail(String email) throws SQLException {
+        String query =
+                "SELECT id, username, password, token, last_result, best_result " +
+                "FROM test_yourself.user " +
+                "WHERE email=?";
+        PreparedStatement preparedStatement = connection.prepareStatement(query);
+        preparedStatement.setString(1, email);
+        ResultSet resultSet = preparedStatement.executeQuery();
+        User user = null;
+        if (resultSet.next()) {
+            user = new User(
+                    resultSet.getInt("id"),
+                    resultSet.getString("username"),
+                    email,
+                    resultSet.getString("password"),
+                    resultSet.getString("token"),
+                    resultSet.getInt("last_result"),
+                    resultSet.getInt("best_result")
+            );
+        }
+        return user;
     }
 }

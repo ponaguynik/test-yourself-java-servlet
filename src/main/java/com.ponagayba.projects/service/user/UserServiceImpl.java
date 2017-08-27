@@ -93,4 +93,9 @@ public class UserServiceImpl implements UserService {
         }
         return user;
     }
+
+    @Override
+    public boolean checkEmail(String email) throws SQLException {
+        return userDAO.findByEmail(email) != null;
+    }
 }

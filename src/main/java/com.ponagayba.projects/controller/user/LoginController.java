@@ -27,7 +27,7 @@ public class LoginController implements Controller {
             registerToken(user);
             result.addCookie(new Cookie("TOKEN", user.getToken()));
         } else {
-            result.setView("login");
+            result.setView("user/login");
             result.setAttribute("error", INCORRECT);
         }
         return result;

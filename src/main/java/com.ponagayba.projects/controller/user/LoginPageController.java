@@ -12,6 +12,6 @@ public class LoginPageController implements Controller {
 
     @Override
     public ModelAndView process(HttpServletRequest request) throws ServletException, IOException, SQLException {
-        return new ModelAndView("login");
+        return new ModelAndView("user/login");
     }
 }

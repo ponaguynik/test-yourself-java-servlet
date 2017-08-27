@@ -10,7 +10,7 @@
         <br>
         <p style="color: red;"><c:out value="${requestScope.error}" /></p>
     </c:if>
-    <form action="<c:url value="/login"/> " method="post">
+    <form action="<c:url value="/login"/>" method="post">
         <div class="form-container flex-container">
             <label for="username-input">Username:</label>
             <input id="username-input" type="text" name="username" maxlength="15" required>
@@ -18,8 +18,8 @@
             <label for="password-input">Password:</label>
             <input id="password-input" type="password" name="password" maxlength="15" required>
             <br>
-            <input class="btn" type="submit" value="Sign In">
-            <a href="signUp.jsp" class="sign-up">Sign Up</a>
+            <input class="btn" type="submit" value="Login">
+            <a href="<c:url value="/signup"/>" class="sign-up">Sign Up</a>
         </div>
     </form>
 </main>

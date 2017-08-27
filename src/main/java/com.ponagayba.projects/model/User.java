@@ -6,6 +6,7 @@ public class User {
 
     private Integer id;
     private String username;
+    private String email;
     private String password;
     private String token;
     private Integer lastResult;
@@ -21,13 +22,29 @@ public class User {
         this.password = password;
     }
 
-    public User(Integer id, String username, String password, String token, Integer lastResult, Integer bestResult) {
+    public User(String username, String email, String password) {
+        this(username, password);
+        this.email = email;
+    }
+
+    public User(Integer id, String username, String email, String password, String token, Integer lastResult, Integer bestResult) {
+        this(username, email, password);
         this.id = id;
-        this.username = username;
-        this.password = password;
         this.token = token;
         this.lastResult = lastResult;
         this.bestResult = bestResult;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public void setAdmin(boolean admin) {
+        this.admin = admin;
     }
 
     public Integer getId() {
