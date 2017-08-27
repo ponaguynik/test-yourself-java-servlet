@@ -30,15 +30,7 @@ public class TestController implements Controller {
 
     private void prepareTest(HttpServletRequest request, ModelAndView mv) throws SQLException {
         QuestionService questionService = Factory.getQuestionService();
-        User user = null;
-        for (Cookie cookie : request.getCookies()) {
-            if (cookie.getName().equalsIgnoreCase("token")) {
-                user = Factory.getUserService().findByToken(cookie.getValue());
-            }
-        }
-        if (user == null) {
-            throw new RuntimeException("User not found");
-        }
+        User user = (User) request.getAttribute("user");
         List<Question> questions = questionService.getAll();
         List<Question> randomQuestions = questionService.getRandomQuestions(questions, 10);
         Test test = new Test();

@@ -3,6 +3,7 @@ package com.ponagayba.projects.service;
 import com.ponagayba.projects.model.User;
 import com.ponagayba.projects.model.test.TestResult;
 
+import javax.servlet.http.Cookie;
 import java.sql.SQLException;
 
 public interface UserService {
@@ -22,4 +23,6 @@ public interface UserService {
     void removeToken(String token) throws SQLException;
 
     void updateResults(User user, TestResult testResult) throws SQLException;
+
+    User getUserFromCookies(Cookie[] cookies) throws SQLException;
 }

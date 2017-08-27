@@ -7,6 +7,7 @@ import com.ponagayba.projects.model.test.TestResult;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.TimeZone;
 import java.util.concurrent.TimeUnit;
 
 public class TestServiceImpl implements TestService {
@@ -51,10 +52,10 @@ public class TestServiceImpl implements TestService {
     private String calculateTestDuration(long startTime) {
         long currentTime = System.nanoTime();
         long diff = currentTime - startTime;
-        return String.format("%02d:%02d:%02d",
-                TimeUnit.NANOSECONDS.toHours(diff),
-                TimeUnit.NANOSECONDS.toMinutes(diff),
-                TimeUnit.NANOSECONDS.toSeconds(diff));
+        Date duration = new Date(TimeUnit.NANOSECONDS.toMillis(diff));
+        SimpleDateFormat ft = new SimpleDateFormat("HH:mm:ss");
+        ft.setTimeZone(TimeZone.getTimeZone("GMT"));
+        return ft.format(duration);
     }
 
     @Override

@@ -27,9 +27,22 @@ public class AnswerTestController implements Controller {
         Question currentQn = test.getCurrentQn();
 
         Factory.getQuestionService().processAnswers(currentQn, answers);
+        setNextQuestion(test);
 
-        result.setAttribute("qnNum", getNextQuestionNum(test));
         return result;
+    }
+
+    private void setNextQuestion(Test test) {
+        List<Question> questions = test.getQuestions();
+        int nextNum = getNextQuestionNum(test);
+        for (Question question : questions) {
+            if (question.getNum() == nextNum) {
+                question.setActive(true);
+                test.setCurrentQn(question);
+            } else {
+                question.setActive(false);
+            }
+        }
     }
 
     private int getNextQuestionNum(Test test) {

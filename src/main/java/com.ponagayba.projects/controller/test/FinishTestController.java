@@ -41,8 +41,8 @@ public class FinishTestController implements Controller {
             int numOfUnanswered = testService.numberOfUnansweredQuestions(test.getQuestions());
             if (numOfUnanswered != 0) {
                 mv.setAttribute("finishMessage", "You have " + numOfUnanswered + " unanswered question(s). Do you want to finish the test anyway?");
+                return false;
             }
-            return false;
         }
         return true;
     }

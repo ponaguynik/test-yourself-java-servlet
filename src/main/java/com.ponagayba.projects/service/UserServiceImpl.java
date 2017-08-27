@@ -7,6 +7,7 @@ import com.ponagayba.projects.model.Role;
 import com.ponagayba.projects.model.User;
 import com.ponagayba.projects.model.test.TestResult;
 
+import javax.servlet.http.Cookie;
 import java.sql.SQLException;
 
 public class UserServiceImpl implements UserService {
@@ -78,5 +79,18 @@ public class UserServiceImpl implements UserService {
             user.setBestResult(user.getLastResult());
         }
         userDAO.updateResults(user);
+    }
+
+    @Override
+    public User getUserFromCookies(Cookie[] cookies) throws SQLException {
+        User user = null;
+        if (cookies != null) {
+            for (Cookie cookie : cookies) {
+                if (cookie.getName().equalsIgnoreCase("token")) {
+                    user = findByToken(cookie.getValue());
+                }
+            }
+        }
+        return user;
     }
 }

@@ -9,5 +9,5 @@ public interface TestResultDAO {
 
     void addTestResult(TestResult testResult) throws SQLException;
 
-    List<TestResult> getUserResults(int userId) throws SQLException;
+    List<TestResult> getUserResults(Integer userId) throws SQLException;
 }

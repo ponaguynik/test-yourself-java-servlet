@@ -148,8 +148,8 @@ public class UserDAOImpl extends AbstractDAO implements UserDAO {
                 "WHERE id=?";
         PreparedStatement preparedStatement = connection.prepareStatement(query);
         preparedStatement.setInt(1, user.getLastResult());
-        preparedStatement.setInt(2, user.getLastResult());
-        preparedStatement.setInt(3, user.getBestResult());
+        preparedStatement.setInt(2, user.getBestResult());
+        preparedStatement.setInt(3, user.getId());
         preparedStatement.executeUpdate();
     }
 }

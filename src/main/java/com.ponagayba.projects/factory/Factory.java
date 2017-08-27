@@ -55,6 +55,10 @@ public class Factory {
         return new AnswerTestController();
     }
 
+    public static Controller getResultsPageController() {
+        return new ResultsPageController();
+    }
+
 
     public static UserService getUserService() {
         return new UserServiceImpl(getUserDAO(), getRoleDAO());

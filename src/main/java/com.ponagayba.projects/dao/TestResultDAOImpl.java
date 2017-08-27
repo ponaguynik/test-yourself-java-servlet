@@ -30,11 +30,11 @@ public class TestResultDAOImpl extends AbstractDAO implements TestResultDAO {
     }
 
     @Override
-    public List<TestResult> getUserResults(int userId) throws SQLException {
+    public List<TestResult> getUserResults(Integer userId) throws SQLException {
         List<TestResult> result = new ArrayList<>();
         String query =
                 "SELECT id, date, time, result, duration " +
-                "FROM test_results " +
+                "FROM test_yourself.test_result " +
                 "WHERE user_id=?;";
         PreparedStatement preparedStatement = connection.prepareStatement(query);
         preparedStatement.setInt(1, userId);
@@ -44,7 +44,7 @@ public class TestResultDAOImpl extends AbstractDAO implements TestResultDAO {
             testResult.setUserId(userId);
             testResult.setDate(resultSet.getString("date"));
             testResult.setTime(resultSet.getString("time"));
-            testResult.setDate(resultSet.getString("duration"));
+            testResult.setDuration(resultSet.getString("duration"));
             testResult.setResult(resultSet.getString("result"));
             result.add(testResult);
         }

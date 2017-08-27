@@ -25,7 +25,7 @@
         <a href="<c:url value="/test/start"/>">Test</a>
         <a href="<c:url value="/results"/>">My Results</a>
         <a href="<c:url value="/about"/>">About</a>
-        <c:if test="${requestScope.user.isAdmin()}">
+        <c:if test="${requestScope.user.admin}">
             <a href="<c:url value="/admin"/>">Admin Panel</a>
         </c:if>
         <c:choose>
