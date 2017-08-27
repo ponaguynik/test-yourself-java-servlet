@@ -1,4 +1,4 @@
-package com.ponagayba.projects.service;
+package com.ponagayba.projects.service.test;
 
 import com.ponagayba.projects.model.test.Question;
 

@@ -1,5 +1,6 @@
-package com.ponagayba.projects.dao;
+package com.ponagayba.projects.dao.test;
 
+import com.ponagayba.projects.dao.AbstractDAO;
 import com.ponagayba.projects.model.test.TestResult;
 
 import java.sql.Connection;

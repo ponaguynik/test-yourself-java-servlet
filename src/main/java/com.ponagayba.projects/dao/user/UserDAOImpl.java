@@ -1,5 +1,6 @@
-package com.ponagayba.projects.dao;
+package com.ponagayba.projects.dao.user;
 
+import com.ponagayba.projects.dao.AbstractDAO;
 import com.ponagayba.projects.model.Role;
 import com.ponagayba.projects.model.User;
 

@@ -1,6 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<jsp:include page="header.jsp">
+<jsp:include page="../header.jsp">
     <jsp:param name="css" value="testResult.css" />
     <jsp:param name="js" value="highlighter" />
     <jsp:param name="title" value="Test Result"/>
@@ -105,4 +105,4 @@
     <br>
     <a class="btn" href="<c:url value="/test"/>">Try Again</a>
 </main>
-<jsp:include page="footer.jsp" />
+<jsp:include page="../footer.jsp" />

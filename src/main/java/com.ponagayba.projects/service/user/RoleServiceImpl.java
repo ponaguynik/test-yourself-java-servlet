@@ -1,6 +1,6 @@
-package com.ponagayba.projects.service;
+package com.ponagayba.projects.service.user;
 
-import com.ponagayba.projects.dao.RoleDAO;
+import com.ponagayba.projects.dao.user.RoleDAO;
 import com.ponagayba.projects.model.Role;
 
 import java.sql.SQLException;

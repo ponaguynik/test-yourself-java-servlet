@@ -1,6 +1,6 @@
-package com.ponagayba.projects.service;
+package com.ponagayba.projects.service.test;
 
-import com.ponagayba.projects.dao.TestResultDAO;
+import com.ponagayba.projects.dao.test.TestResultDAO;
 import com.ponagayba.projects.model.test.TestResult;
 
 import java.sql.SQLException;

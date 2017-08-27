@@ -1,4 +1,4 @@
-package com.ponagayba.projects.dao;
+package com.ponagayba.projects.dao.user;
 
 
 import com.ponagayba.projects.model.Role;

@@ -5,8 +5,8 @@ import com.ponagayba.projects.factory.Factory;
 import com.ponagayba.projects.model.User;
 import com.ponagayba.projects.model.test.Test;
 import com.ponagayba.projects.model.test.TestResult;
-import com.ponagayba.projects.service.TestService;
-import com.ponagayba.projects.service.UserService;
+import com.ponagayba.projects.service.test.TestService;
+import com.ponagayba.projects.service.user.UserService;
 import com.ponagayba.projects.servlet.ModelAndView;
 
 import javax.servlet.ServletException;

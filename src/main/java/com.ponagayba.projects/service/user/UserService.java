@@ -1,4 +1,4 @@
-package com.ponagayba.projects.service;
+package com.ponagayba.projects.service.user;
 
 import com.ponagayba.projects.model.User;
 import com.ponagayba.projects.model.test.TestResult;

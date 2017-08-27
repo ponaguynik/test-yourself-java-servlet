@@ -1,6 +1,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<jsp:include page="header.jsp">
+<jsp:include page="../header.jsp">
     <jsp:param name="css" value="results.css" />
     <jsp:param name="title" value="My Results" />
 </jsp:include>
@@ -33,4 +33,4 @@
         <p class="align-center">No results yet</p>
     </c:otherwise>
 </c:choose>
-<jsp:include page="footer.jsp" />
+<jsp:include page="../footer.jsp" />

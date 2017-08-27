@@ -1,7 +1,7 @@
-package com.ponagayba.projects.service;
+package com.ponagayba.projects.service.user;
 
-import com.ponagayba.projects.dao.RoleDAO;
-import com.ponagayba.projects.dao.UserDAO;
+import com.ponagayba.projects.dao.user.RoleDAO;
+import com.ponagayba.projects.dao.user.UserDAO;
 import com.ponagayba.projects.factory.Factory;
 import com.ponagayba.projects.model.Role;
 import com.ponagayba.projects.model.User;
