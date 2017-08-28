@@ -25,10 +25,10 @@
             </td>
             <td class="actions">
                 <a class="edit-btn" href="
-                    <c:url value="/admin/users/manageUser">
+                    <c:url value="/admin/users/manage-user">
                             <c:param name="userId" value="${user.id}"/>
                     </c:url>">Edit</a>
-                <form id="deleteUserForm${user.id}" action="<c:url value="/admin/users/deleteUser"/>" method="post">
+                <form id="deleteUserForm${user.id}" action="<c:url value="/admin/users/delete-user"/>" method="post">
                     <input type="hidden" name="userId" value="${user.id}">
                 </form>
                 <button class="delete-btn" name="deleteUser" onclick="deleteConf(${user.id})" value="delete">Delete</button>

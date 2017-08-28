@@ -4,10 +4,9 @@ import com.ponagayba.projects.dao.AbstractDAO;
 import com.ponagayba.projects.model.Role;
 import com.ponagayba.projects.model.User;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class UserDAOImpl extends AbstractDAO implements UserDAO {
 
@@ -20,7 +19,7 @@ public class UserDAOImpl extends AbstractDAO implements UserDAO {
         String query =
                 "SELECT username, email, password, token, last_result, best_result " +
                 "FROM test_yourself.user " +
-                "WHERE id=?";
+                "WHERE id=?;";
         PreparedStatement preparedStatement = connection.prepareStatement(query);
         preparedStatement.setInt(1, id);
         ResultSet resultSet = preparedStatement.executeQuery();
@@ -44,7 +43,7 @@ public class UserDAOImpl extends AbstractDAO implements UserDAO {
         String query =
                 "SELECT id, email, token, last_result, best_result " +
                 "FROM test_yourself.user " +
-                "WHERE username=? AND password=?";
+                "WHERE username=? AND password=?;";
         PreparedStatement preparedStatement = connection.prepareStatement(query);
         preparedStatement.setString(1, username);
         preparedStatement.setString(2, password);
@@ -88,22 +87,11 @@ public class UserDAOImpl extends AbstractDAO implements UserDAO {
     }
 
     @Override
-    public void addRole(int userId, Role role) throws SQLException {
-        String query =
-                "INSERT INTO test_yourself.user_to_role(user_id, role_id) " +
-                "VALUES(?, ?);";
-        PreparedStatement preparedStatement = connection.prepareStatement(query);
-        preparedStatement.setInt(1, userId);
-        preparedStatement.setInt(2, role.getId());
-        preparedStatement.execute();
-    }
-
-    @Override
     public void updateToken(int userId, String token) throws SQLException {
         String query =
                 "UPDATE test_yourself.user " +
                 "SET token=? " +
-                "WHERE id=?";
+                "WHERE id=?;";
         PreparedStatement preparedStatement = connection.prepareStatement(query);
         preparedStatement.setString(1, token);
         preparedStatement.setInt(2, userId);
@@ -115,7 +103,7 @@ public class UserDAOImpl extends AbstractDAO implements UserDAO {
         String query =
                 "SELECT id, username, email, password, last_result, best_result " +
                 "FROM test_yourself.user " +
-                "WHERE token=?";
+                "WHERE token=?;";
         PreparedStatement preparedStatement = connection.prepareStatement(query);
         preparedStatement.setString(1, token);
         ResultSet resultSet = preparedStatement.executeQuery();
@@ -139,7 +127,7 @@ public class UserDAOImpl extends AbstractDAO implements UserDAO {
         String query =
                 "UPDATE test_yourself.user " +
                 "SET token=NULL " +
-                "WHERE token=?";
+                "WHERE token=?;";
         PreparedStatement preparedStatement = connection.prepareStatement(query);
         preparedStatement.setString(1, token);
         preparedStatement.execute();
@@ -150,7 +138,7 @@ public class UserDAOImpl extends AbstractDAO implements UserDAO {
         String query =
                 "UPDATE test_yourself.user " +
                 "SET last_result=?, best_result=? " +
-                "WHERE id=?";
+                "WHERE id=?;";
         PreparedStatement preparedStatement = connection.prepareStatement(query);
         preparedStatement.setInt(1, user.getLastResult());
         preparedStatement.setInt(2, user.getBestResult());
@@ -161,9 +149,9 @@ public class UserDAOImpl extends AbstractDAO implements UserDAO {
     @Override
     public User findByEmail(String email) throws SQLException {
         String query =
-                "SELECT id, username, password, token, last_result, best_result " +
+                "SELECT id, username, email, password, token, last_result, best_result " +
                 "FROM test_yourself.user " +
-                "WHERE email=?";
+                "WHERE email=?;";
         PreparedStatement preparedStatement = connection.prepareStatement(query);
         preparedStatement.setString(1, email);
         ResultSet resultSet = preparedStatement.executeQuery();
@@ -180,5 +168,55 @@ public class UserDAOImpl extends AbstractDAO implements UserDAO {
             );
         }
         return user;
+    }
+
+    @Override
+    public List<User> getAll() throws SQLException {
+        String query =
+                "SELECT id, username, email, password, token, last_result, best_result " +
+                "FROM test_yourself.user;";
+        Statement statement = connection.createStatement();
+        ResultSet resultSet = statement.executeQuery(query);
+        List<User> result = new ArrayList<>();
+        while (resultSet.next()) {
+            User user = new User(
+                    resultSet.getInt("id"),
+                    resultSet.getString("username"),
+                    resultSet.getString("email"),
+                    resultSet.getString("password"),
+                    resultSet.getString("token"),
+                    resultSet.getInt("last_result"),
+                    resultSet.getInt("best_result")
+            );
+            result.add(user);
+        }
+        return result;
+    }
+
+    @Override
+    public void deleteUser(int userId) throws SQLException {
+        String query =
+                "DELETE FROM test_yourself.user " +
+                "WHERE id=?;";
+        PreparedStatement preparedStatement = connection.prepareStatement(query);
+        preparedStatement.setInt(1, userId);
+        preparedStatement.execute();
+    }
+
+    @Override
+    public void update(User user) throws SQLException {
+        String query =
+                "UPDATE test_yourself.user " +
+                "SET username=?, email=?, password=?, token=?, last_result=?, best_result=? " +
+                "WHERE id=?;";
+        PreparedStatement preparedStatement = connection.prepareStatement(query);
+        preparedStatement.setString(1, user.getUsername());
+        preparedStatement.setString(2, user.getEmail());
+        preparedStatement.setString(3, user.getPassword());
+        preparedStatement.setString(4, user.getToken());
+        preparedStatement.setInt(5, user.getLastResult());
+        preparedStatement.setInt(6, user.getBestResult());
+        preparedStatement.setInt(7, user.getId());
+        preparedStatement.executeUpdate();
     }
 }

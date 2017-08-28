@@ -11,4 +11,12 @@ public interface RoleDAO {
     Role findByName(String name) throws SQLException;
 
     List<Role> getUserRoles(int userId) throws SQLException;
+
+    List<Role> getAll() throws SQLException;
+
+    void deleteUserRoles(int userId) throws SQLException;
+
+    void addRoleToUser(int userId, Role role) throws SQLException;
+
+    Role findById(int roleId) throws SQLException;
 }

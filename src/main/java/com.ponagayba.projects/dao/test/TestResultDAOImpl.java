@@ -51,4 +51,14 @@ public class TestResultDAOImpl extends AbstractDAO implements TestResultDAO {
         }
         return result;
     }
+
+    @Override
+    public void deleteUserTestResults(int userId) throws SQLException {
+        String query =
+                "DELETE FROM test_yourself.test_result " +
+                "WHERE user_id=?;";
+        PreparedStatement preparedStatement = connection.prepareStatement(query);
+        preparedStatement.setInt(1, userId);
+        preparedStatement.execute();
+    }
 }

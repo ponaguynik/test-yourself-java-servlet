@@ -30,11 +30,16 @@
     </filter>
     <filter-mapping>
         <filter-name>UserFilter</filter-name>
-        <url-pattern>/</url-pattern>
-        <url-pattern>/home</url-pattern>
-        <url-pattern>/test</url-pattern>
-        <url-pattern>/admin</url-pattern>
-        <url-pattern>/results</url-pattern>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+
+    <filter>
+        <filter-name>AdminFilter</filter-name>
+        <filter-class>com.ponagayba.projects.filter.AdminFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>AdminFilter</filter-name>
+        <url-pattern>/admin/*</url-pattern>
     </filter-mapping>
 
 

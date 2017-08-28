@@ -10,4 +10,6 @@ public interface TestResultDAO {
     void addTestResult(TestResult testResult) throws SQLException;
 
     List<TestResult> getUserResults(Integer userId) throws SQLException;
+
+    void deleteUserTestResults(int userId) throws SQLException;
 }

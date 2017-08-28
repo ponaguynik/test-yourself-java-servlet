@@ -9,6 +9,7 @@ import com.ponagayba.projects.model.test.TestResult;
 
 import javax.servlet.http.Cookie;
 import java.sql.SQLException;
+import java.util.List;
 
 public class UserServiceImpl implements UserService {
 
@@ -48,7 +49,7 @@ public class UserServiceImpl implements UserService {
         userDAO.create(user);
         User userDB = userDAO.getUser(user.getUsername(), user.getPassword());
         for (Role role : user.getRoles()) {
-            userDAO.addRole(userDB.getId(), role);
+            roleDAO.addRoleToUser(userDB.getId(), role);
         }
     }
 
@@ -83,19 +84,43 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User getUserFromCookies(Cookie[] cookies) throws SQLException {
-        User user = null;
+        User result = null;
         if (cookies != null) {
             for (Cookie cookie : cookies) {
                 if (cookie.getName().equalsIgnoreCase("token")) {
-                    user = findByToken(cookie.getValue());
+                    result = findByToken(cookie.getValue());
                 }
             }
         }
-        return user;
+        if (result != null) {
+            result.setRoles(roleDAO.getUserRoles(result.getId()));
+        }
+        return result;
     }
 
     @Override
-    public boolean checkEmail(String email) throws SQLException {
-        return userDAO.findByEmail(email) != null;
+    public boolean isEmailFree(String email) throws SQLException {
+        return userDAO.findByEmail(email) == null;
+    }
+
+    @Override
+    public List<User> getAll() throws SQLException {
+        List<User> result = userDAO.getAll();
+        for (User user : result) {
+            user.setRoles(roleDAO.getUserRoles(user.getId()));
+        }
+        return result;
+    }
+
+    @Override
+    public void deleteUser(int userId) throws SQLException {
+        Factory.getTestResultService().deleteUserTestResults(userId);
+        roleDAO.deleteUserRoles(userId);
+        userDAO.deleteUser(userId);
+    }
+
+    @Override
+    public void updateUser(User user) throws SQLException {
+        userDAO.update(user);
     }
 }

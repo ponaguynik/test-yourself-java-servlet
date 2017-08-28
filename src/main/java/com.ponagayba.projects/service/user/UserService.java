@@ -5,6 +5,7 @@ import com.ponagayba.projects.model.test.TestResult;
 
 import javax.servlet.http.Cookie;
 import java.sql.SQLException;
+import java.util.List;
 
 public interface UserService {
 
@@ -26,5 +27,11 @@ public interface UserService {
 
     User getUserFromCookies(Cookie[] cookies) throws SQLException;
 
-    boolean checkEmail(String email) throws SQLException;
+    boolean isEmailFree(String email) throws SQLException;
+
+    List<User> getAll() throws SQLException;
+
+    void deleteUser(int userId) throws SQLException;
+
+    void updateUser(User user) throws SQLException;
 }

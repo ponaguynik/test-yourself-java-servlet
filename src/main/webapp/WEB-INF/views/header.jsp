@@ -25,11 +25,11 @@
         <a href="<c:url value="/test/start"/>">Test</a>
         <a href="<c:url value="/results"/>">My Results</a>
         <a href="<c:url value="/about"/>">About</a>
-        <c:if test="${requestScope.user.admin}">
-            <a href="<c:url value="/admin"/>">Admin Panel</a>
-        </c:if>
         <c:choose>
-            <c:when test="${cookie != null && cookie.TOKEN != null}">
+            <c:when test="${requestScope.user != null}">
+                <c:if test="${requestScope.user.admin}">
+                    <a href="<c:url value="/admin/users"/>">Admin Panel</a>
+                </c:if>
                 <form class="login-menu-item" action="<c:url value="/logout"/> " method="post">
                     <input type="image" src="${pageContext.request.contextPath}/resources/images/logout.png" alt="Logout">
                 </form>

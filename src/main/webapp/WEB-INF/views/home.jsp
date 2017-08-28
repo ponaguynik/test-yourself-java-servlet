@@ -23,7 +23,7 @@
                 </form>
             </c:when>
             <c:otherwise>
-                <span>Hello, <span>Guest!</span></span>
+                <span>Hello, <span>Guest</span>!</span>
                 <br>
                 <p>Please, login first to pass the test.</p>
                 <br>

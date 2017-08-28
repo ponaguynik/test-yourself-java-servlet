@@ -1,6 +1,7 @@
 package com.ponagayba.projects.factory;
 
 import com.ponagayba.projects.controller.*;
+import com.ponagayba.projects.controller.admin.*;
 import com.ponagayba.projects.controller.test.*;
 import com.ponagayba.projects.controller.user.*;
 import com.ponagayba.projects.dao.test.QuestionDAO;
@@ -70,6 +71,10 @@ public class Factory {
         return new ResultsPageController();
     }
 
+    public static Controller getAdminUsersController() {
+        return new UsersPageController();
+    }
+
 
     public static UserService getUserService() {
         return new UserServiceImpl(getUserDAO(), getRoleDAO());
@@ -118,5 +123,21 @@ public class Factory {
             throw new RuntimeException("Driver has not been initialized");
         }
         return connection;
+    }
+
+    public static Controller getManageUserPageController() {
+        return new ManageUserPageController();
+    }
+
+    public static Controller getDeleteUserController() {
+        return new DeleteUserController();
+    }
+
+    public static Controller getUpdateUserController() {
+        return new UpdateUserController();
+    }
+
+    public static Controller getUpdateUserRolesController() {
+        return new UpdateUserRolesController();
     }
 }

@@ -33,6 +33,12 @@ public class DispatcherServlet extends HttpServlet {
         controllerMap.put("POST/pages/test/answer", Factory.getAnswerTestController());
         controllerMap.put("POST/pages/test/cancel", Factory.getCancelAnswerTestController());
         controllerMap.put("GET/pages/results", Factory.getResultsPageController());
+        controllerMap.put("GET/pages/admin", Factory.getAdminUsersController());
+        controllerMap.put("GET/pages/admin/users", Factory.getAdminUsersController());
+        controllerMap.put("GET/pages/admin/users/manage-user", Factory.getManageUserPageController());
+        controllerMap.put("POST/pages/admin/users/delete-user", Factory.getDeleteUserController());
+        controllerMap.put("POST/pages/admin/users/manage-user/update", Factory.getUpdateUserController());
+        controllerMap.put("POST/pages/admin/users/manage-user/update-roles", Factory.getUpdateUserRolesController());
     }
 
     @Override

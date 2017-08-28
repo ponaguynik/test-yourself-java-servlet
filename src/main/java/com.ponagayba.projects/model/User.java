@@ -35,6 +35,20 @@ public class User {
         this.bestResult = bestResult;
     }
 
+    public User(User user) {
+        this(
+                user.getId(),
+                user.getUsername(),
+                user.getEmail(),
+                user.getPassword(),
+                user.getToken(),
+                user.getLastResult(),
+                user.getBestResult()
+        );
+        this.roles = user.getRoles();
+        this.admin = user.isAdmin();
+    }
+
     public String getEmail() {
         return email;
     }

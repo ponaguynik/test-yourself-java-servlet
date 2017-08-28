@@ -23,4 +23,9 @@ public class TestResultServiceImpl implements TestResultService {
     public List<TestResult> getUserResults(Integer id) throws SQLException {
         return testResultDAO.getUserResults(id);
     }
+
+    @Override
+    public void deleteUserTestResults(int userId) throws SQLException {
+        testResultDAO.deleteUserTestResults(userId);
+    }
 }

@@ -42,7 +42,7 @@ public class SignUpController implements Controller {
         UserService userService = Factory.getUserService();
         if (userService.userExists(username)) {
             result = "Username with such username already exists.";
-        } else if (userService.checkEmail(email)) {
+        } else if (!userService.isEmailFree(email)) {
             result = "This email is already registered.";
         } else if (!password.equals(confPassword)) {
             result = "Password does not match the confirm password.";
