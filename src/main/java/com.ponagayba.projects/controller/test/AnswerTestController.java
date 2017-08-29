@@ -10,6 +10,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.Arrays;
 import java.util.List;
 
 public class AnswerTestController implements Controller {
@@ -26,7 +27,7 @@ public class AnswerTestController implements Controller {
         Test test = (Test) request.getSession().getAttribute("test");
         Question currentQn = test.getCurrentQn();
 
-        Factory.getQuestionService().processAnswers(currentQn, answers);
+        Factory.getQuestionService().processAnswers(currentQn, Arrays.asList(answers));
         setNextQuestion(test);
 
         return result;

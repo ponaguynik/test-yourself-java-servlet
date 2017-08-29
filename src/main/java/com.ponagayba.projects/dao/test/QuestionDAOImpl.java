@@ -3,11 +3,9 @@ package com.ponagayba.projects.dao.test;
 import com.ponagayba.projects.dao.AbstractDAO;
 import com.ponagayba.projects.model.test.Question;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class QuestionDAOImpl extends AbstractDAO implements QuestionDAO {
@@ -19,7 +17,7 @@ public class QuestionDAOImpl extends AbstractDAO implements QuestionDAO {
     @Override
     public List<Question> getAll() throws SQLException {
         String query =
-                "SELECT id, question, code, choice, choice_type, answer " +
+                "SELECT id, question, code, options, option_type, answer " +
                 "FROM test_yourself.question;";
         Statement statement = connection.createStatement();
         ResultSet resultSet = statement.executeQuery(query);
@@ -29,11 +27,36 @@ public class QuestionDAOImpl extends AbstractDAO implements QuestionDAO {
             question.setId(resultSet.getInt("id"));
             question.setQuestion(resultSet.getString("question"));
             question.setCode(resultSet.getString("code"));
-            question.setChoice(resultSet.getString("choice").split("&"));
-            question.setChoiceType(resultSet.getString("choice_type"));
-            question.setCorrectAnswers(resultSet.getString("answer").split("&"));
+            question.setOptions(Arrays.asList(resultSet.getString("options").split("&")));
+            question.setOptionType(resultSet.getString("option_type"));
+            question.setCorrectAnswers(Arrays.asList(resultSet.getString("answer").split("&")));
             result.add(question);
         }
         return result;
+    }
+
+    @Override
+    public void addQuestion(Question question) throws SQLException {
+        String options = toStoringForm(question.getOptions());
+        String answer = toStoringForm(question.getCorrectAnswers());
+        String query =
+                "INSERT INTO test_yourself.question(question, code, options, option_type, answer)" +
+                "VALUES(?, ?, ?, ?, ?);";
+        PreparedStatement preparedStatement = connection.prepareStatement(query);
+        preparedStatement.setString(1, question.getQuestion());
+        preparedStatement.setString(2, question.getCode());
+        preparedStatement.setString(3, options);
+        preparedStatement.setString(4, question.getOptionType());
+        preparedStatement.setString(5, answer);
+        preparedStatement.execute();
+    }
+
+    private String toStoringForm(List<String> items) {
+        StringBuilder sb = new StringBuilder();
+        for (String item : items) {
+            sb.append(item).append("&");
+        }
+        sb.deleteCharAt(sb.length() - 1);
+        return sb.toString();
     }
 }

@@ -9,13 +9,15 @@
 </script>
 <table>
     <tr>
+        <th>№</th>
         <th>Username</th>
         <th>Email</th>
         <th>Roles</th>
         <th>Actions</th>
     </tr>
-    <c:forEach var="user" items="${requestScope.users}">
+    <c:forEach var="user" items="${requestScope.users}" varStatus="userCount">
         <tr>
+            <td class="td-num"><c:out value="${userCount.index+1}"/></td>
             <td><c:out value="${user.username}"/></td>
             <td><c:out value="${user.email}"/></td>
             <td>

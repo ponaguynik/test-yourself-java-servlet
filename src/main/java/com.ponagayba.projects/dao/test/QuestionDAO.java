@@ -8,4 +8,6 @@ import java.util.List;
 public interface QuestionDAO {
 
     List<Question> getAll() throws SQLException;
+
+    void addQuestion(Question question) throws SQLException;
 }

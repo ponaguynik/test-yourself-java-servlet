@@ -1,4 +1,4 @@
-package com.ponagayba.projects.controller.admin;
+package com.ponagayba.projects.controller.admin.user;
 
 import com.ponagayba.projects.controller.Controller;
 import com.ponagayba.projects.factory.Factory;

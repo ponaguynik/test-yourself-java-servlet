@@ -39,6 +39,9 @@ public class DispatcherServlet extends HttpServlet {
         controllerMap.put("POST/pages/admin/users/delete-user", Factory.getDeleteUserController());
         controllerMap.put("POST/pages/admin/users/manage-user/update", Factory.getUpdateUserController());
         controllerMap.put("POST/pages/admin/users/manage-user/update-roles", Factory.getUpdateUserRolesController());
+        controllerMap.put("GET/pages/admin/questions", Factory.getQuestionsPageController());
+        controllerMap.put("GET/pages/admin/questions/add", Factory.getAddQuestionPageController());
+        controllerMap.put("POST/pages/admin/questions/add", Factory.getAddQuestionController());
     }
 
     @Override

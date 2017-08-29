@@ -43,10 +43,10 @@ public class QuestionServiceImpl implements QuestionService {
     }
 
     @Override
-    public void processAnswers(Question question, String[] answers) {
+    public void processAnswers(Question question, List<String> answers) {
         question.setAnswers(answers);
         question.setAnswered(true);
-        if (Arrays.equals(answers, question.getCorrectAnswers())) {
+        if (answers.equals(question.getCorrectAnswers())) {
             question.setCorrect(true);
         } else {
             question.setCorrect(false);
@@ -58,5 +58,10 @@ public class QuestionServiceImpl implements QuestionService {
         question.setAnswered(false);
         question.setAnswers(null);
         question.setCorrect(false);
+    }
+
+    @Override
+    public void addQuestion(Question question) throws SQLException {
+        questionDAO.addQuestion(question);
     }
 }

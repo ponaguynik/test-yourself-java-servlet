@@ -56,7 +56,7 @@
             <div class="answer">
                 <form>
                     <c:set var="idNum" value="1" />
-                    <c:forEach items="${question.choice}" var="item" varStatus="count">
+                    <c:forEach items="${question.options}" var="item" varStatus="count">
                         <c:set var="checked" value="false" />
                         <c:set var="correct" value="false" />
                         <c:forEach var="itm" items="${question.answers}">
@@ -88,10 +88,10 @@
                         </c:choose>
                         <c:choose>
                             <c:when test="${checked}">
-                                <input id="opt${idNum}" type="${question.choiceType}" name="answer" value="${count.index+1}" checked disabled>
+                                <input id="opt${idNum}" type="${question.optionType}" name="answer" value="${count.index+1}" checked disabled>
                             </c:when>
                             <c:otherwise>
-                                <input id="opt${idNum}" type="${question.choiceType}" name="answer" value="${count.index+1}" disabled>
+                                <input id="opt${idNum}" type="${question.optionType}" name="answer" value="${count.index+1}" disabled>
                             </c:otherwise>
                         </c:choose>
                         <label for="opt${idNum}">${item}</label>

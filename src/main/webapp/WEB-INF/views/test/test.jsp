@@ -76,8 +76,8 @@
         <c:choose>
             <c:when test="${!sessionScope.test.currentQn.answered}">
                 <form action="<c:url value="/test/answer"/>" method="post">
-                    <c:forEach items="${sessionScope.test.currentQn.choice}" var="item" varStatus="count">
-                        <input id="opt${count.index+1}" type="${sessionScope.test.currentQn.choiceType}" name="answer" value="${count.index+1}">
+                    <c:forEach items="${sessionScope.test.currentQn.options}" var="item" varStatus="count">
+                        <input id="opt${count.index+1}" type="${sessionScope.test.currentQn.optionType}" name="answer" value="${count.index+1}">
                         <label for="opt${count.index+1}">${item}</label>
                         <br>
                     </c:forEach>
@@ -87,7 +87,7 @@
             </c:when>
             <c:otherwise>
                 <form action="<c:url value="/test/cancel"/>" method="post">
-                    <c:forEach items="${sessionScope.test.currentQn.choice}" var="item" varStatus="count">
+                    <c:forEach items="${sessionScope.test.currentQn.options}" var="item" varStatus="count">
                         <c:set var="contains" value="false" />
                         <c:forEach var="itm" items="${sessionScope.test.currentQn.answers}">
                             <c:if test="${count.index+1 eq itm}">
@@ -96,10 +96,10 @@
                         </c:forEach>
                         <c:choose>
                             <c:when test="${contains}">
-                                <input id="opt${count.index+1}" type="${sessionScope.test.currentQn.choiceType}" name="answer" value="${count.index+1}" checked disabled>
+                                <input id="opt${count.index+1}" type="${sessionScope.test.currentQn.optionType}" name="answer" value="${count.index+1}" checked disabled>
                             </c:when>
                             <c:otherwise>
-                                <input id="opt${count.index+1}" type="${sessionScope.test.currentQn.choiceType}" name="answer" value="${count.index+1}" disabled>
+                                <input id="opt${count.index+1}" type="${sessionScope.test.currentQn.optionType}" name="answer" value="${count.index+1}" disabled>
                             </c:otherwise>
                         </c:choose>
                         <label for="opt${count.index+1}">${item}</label>

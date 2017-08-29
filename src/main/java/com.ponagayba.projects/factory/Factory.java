@@ -1,7 +1,10 @@
 package com.ponagayba.projects.factory;
 
 import com.ponagayba.projects.controller.*;
-import com.ponagayba.projects.controller.admin.*;
+import com.ponagayba.projects.controller.admin.question.AddQuestionController;
+import com.ponagayba.projects.controller.admin.question.AddQuestionPageController;
+import com.ponagayba.projects.controller.admin.question.QuestionsPageController;
+import com.ponagayba.projects.controller.admin.user.*;
 import com.ponagayba.projects.controller.test.*;
 import com.ponagayba.projects.controller.user.*;
 import com.ponagayba.projects.dao.test.QuestionDAO;
@@ -75,6 +78,34 @@ public class Factory {
         return new UsersPageController();
     }
 
+    public static Controller getManageUserPageController() {
+        return new ManageUserPageController();
+    }
+
+    public static Controller getDeleteUserController() {
+        return new DeleteUserController();
+    }
+
+    public static Controller getUpdateUserController() {
+        return new UpdateUserController();
+    }
+
+    public static Controller getUpdateUserRolesController() {
+        return new UpdateUserRolesController();
+    }
+
+    public static Controller getQuestionsPageController() {
+        return new QuestionsPageController();
+    }
+
+    public static Controller getAddQuestionPageController() {
+        return new AddQuestionPageController();
+    }
+
+    public static Controller getAddQuestionController() {
+        return new AddQuestionController();
+    }
+
 
     public static UserService getUserService() {
         return new UserServiceImpl(getUserDAO(), getRoleDAO());
@@ -123,21 +154,5 @@ public class Factory {
             throw new RuntimeException("Driver has not been initialized");
         }
         return connection;
-    }
-
-    public static Controller getManageUserPageController() {
-        return new ManageUserPageController();
-    }
-
-    public static Controller getDeleteUserController() {
-        return new DeleteUserController();
-    }
-
-    public static Controller getUpdateUserController() {
-        return new UpdateUserController();
-    }
-
-    public static Controller getUpdateUserRolesController() {
-        return new UpdateUserRolesController();
     }
 }

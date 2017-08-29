@@ -11,7 +11,9 @@ public interface QuestionService {
 
     List<Question> getRandomQuestions(List<Question> questions, int num);
 
-    void processAnswers(Question question, String[] answers);
+    void processAnswers(Question question, List<String> answers);
 
     void resetAnswers(Question question);
+
+    void addQuestion(Question question) throws SQLException;
 }
