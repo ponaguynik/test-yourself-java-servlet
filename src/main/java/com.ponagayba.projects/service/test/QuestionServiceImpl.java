@@ -64,4 +64,19 @@ public class QuestionServiceImpl implements QuestionService {
     public void addQuestion(Question question) throws SQLException {
         questionDAO.addQuestion(question);
     }
+
+    @Override
+    public void deleteQuestion(int questionId) throws SQLException {
+        questionDAO.delete(questionId);
+    }
+
+    @Override
+    public Question findById(int questionId) throws SQLException {
+        return questionDAO.findById(questionId);
+    }
+
+    @Override
+    public void updateQuestion(Question question) throws SQLException {
+        questionDAO.update(question);
+    }
 }

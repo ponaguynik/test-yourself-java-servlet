@@ -16,4 +16,10 @@ public interface QuestionService {
     void resetAnswers(Question question);
 
     void addQuestion(Question question) throws SQLException;
+
+    void deleteQuestion(int questionId) throws SQLException;
+
+    Question findById(int questionId) throws SQLException;
+
+    void updateQuestion(Question question) throws SQLException;
 }

@@ -51,7 +51,60 @@ public class QuestionDAOImpl extends AbstractDAO implements QuestionDAO {
         preparedStatement.execute();
     }
 
+    @Override
+    public void delete(int questionId) throws SQLException {
+        String query =
+                "DELETE FROM test_yourself.question " +
+                "WHERE id=?;";
+        PreparedStatement preparedStatement = connection.prepareStatement(query);
+        preparedStatement.setInt(1, questionId);
+        preparedStatement.execute();
+    }
+
+    @Override
+    public Question findById(int questionId) throws SQLException {
+        String query =
+                "SELECT id, question, code, options, option_type, answer " +
+                "FROM test_yourself.question " +
+                "WHERE id=?;";
+        PreparedStatement preparedStatement = connection.prepareStatement(query);
+        preparedStatement.setInt(1, questionId);
+        ResultSet resultSet = preparedStatement.executeQuery();
+        Question result = null;
+        if (resultSet.next()) {
+            result = new Question();
+            result.setId(resultSet.getInt("id"));
+            result.setQuestion(resultSet.getString("question"));
+            result.setCode(resultSet.getString("code"));
+            result.setOptions(Arrays.asList(resultSet.getString("options").split("&")));
+            result.setOptionType(resultSet.getString("option_type"));
+            result.setCorrectAnswers(Arrays.asList(resultSet.getString("answer").split("&")));
+        }
+        return result;
+    }
+
+    @Override
+    public void update(Question question) throws SQLException {
+        String options = toStoringForm(question.getOptions());
+        String answer = toStoringForm(question.getCorrectAnswers());
+        String query =
+                "UPDATE test_yourself.question " +
+                "SET question=?, code=?, options=?, option_type=?, answer=? " +
+                "WHERE id=?;";
+        PreparedStatement preparedStatement = connection.prepareStatement(query);
+        preparedStatement.setString(1, question.getQuestion());
+        preparedStatement.setString(2, question.getCode());
+        preparedStatement.setString(3, options);
+        preparedStatement.setString(4, question.getOptionType());
+        preparedStatement.setString(5, answer);
+        preparedStatement.setInt(6, question.getId());
+        preparedStatement.executeUpdate();
+    }
+
     private String toStoringForm(List<String> items) {
+        if (items.isEmpty()) {
+            return "";
+        }
         StringBuilder sb = new StringBuilder();
         for (String item : items) {
             sb.append(item).append("&");

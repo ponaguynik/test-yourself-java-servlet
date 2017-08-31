@@ -3,7 +3,6 @@ package com.ponagayba.projects.controller.admin.question;
 import com.ponagayba.projects.controller.Controller;
 import com.ponagayba.projects.factory.Factory;
 import com.ponagayba.projects.model.test.Question;
-import com.ponagayba.projects.service.test.QuestionService;
 import com.ponagayba.projects.servlet.ModelAndView;
 
 import javax.servlet.ServletException;
@@ -15,32 +14,19 @@ import java.util.Arrays;
 import java.util.List;
 
 @SuppressWarnings("Duplicates")
-public class AddQuestionController implements Controller {
+public class EditQuestionController implements Controller {
 
     @Override
     public ModelAndView process(HttpServletRequest request) throws ServletException, IOException, SQLException {
-        ModelAndView result = new ModelAndView("admin/admin");
-        String configured = request.getParameter("configured");
-        if (configured == null) {
-            configure(request, result);
-            result.setAttribute("page", "addQuestion1");
-        } else {
-            Question question = parseQuestion(request);
-            QuestionService questionService = Factory.getQuestionService();
-            questionService.addQuestion(question);
-            result.setRedirect(true);
-            result.setView("/admin/questions");
-        }
-        return result;
-    }
+        ModelAndView result = new ModelAndView();
+        int questionId = Integer.parseInt(request.getParameter("questionId"));
+        Question question = parseQuestion(request);
+        question.setId(questionId);
+        Factory.getQuestionService().updateQuestion(question);
 
-    private void configure(HttpServletRequest request, ModelAndView mv) {
-        String withCode = request.getParameter("withCode");
-        String optionType = request.getParameter("optionType");
-        String optionsNum = request.getParameter("optionsNum");
-        mv.setAttribute("withCode", withCode);
-        mv.setAttribute("optionType", optionType);
-        mv.setAttribute("optionsNum", optionsNum);
+        result.setRedirect(true);
+        result.setView("/admin/questions");
+        return result;
     }
 
     private Question parseQuestion(HttpServletRequest request) {

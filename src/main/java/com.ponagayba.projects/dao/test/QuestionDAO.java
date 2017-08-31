@@ -10,4 +10,10 @@ public interface QuestionDAO {
     List<Question> getAll() throws SQLException;
 
     void addQuestion(Question question) throws SQLException;
+
+    void delete(int questionId) throws SQLException;
+
+    Question findById(int questionId) throws SQLException;
+
+    void update(Question question) throws SQLException;
 }

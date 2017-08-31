@@ -42,6 +42,9 @@ public class DispatcherServlet extends HttpServlet {
         controllerMap.put("GET/pages/admin/questions", Factory.getQuestionsPageController());
         controllerMap.put("GET/pages/admin/questions/add", Factory.getAddQuestionPageController());
         controllerMap.put("POST/pages/admin/questions/add", Factory.getAddQuestionController());
+        controllerMap.put("POST/pages/admin/questions/delete", Factory.getDeleteQuestionController());
+        controllerMap.put("GET/pages/admin/questions/edit", Factory.getEditQuestionPageController());
+        controllerMap.put("POST/pages/admin/questions/edit", Factory.getEditQuestionController());
     }
 
     @Override
@@ -64,7 +67,7 @@ public class DispatcherServlet extends HttpServlet {
             render(modelAndView, request, response);
         } catch (PageNotFoundException e) {
             response.sendError(404);
-        } catch (Exception e) {
+        } catch (Throwable e) {
             e.printStackTrace();
             response.sendError(500);
         }

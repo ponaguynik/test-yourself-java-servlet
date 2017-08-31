@@ -1,9 +1,7 @@
 package com.ponagayba.projects.factory;
 
 import com.ponagayba.projects.controller.*;
-import com.ponagayba.projects.controller.admin.question.AddQuestionController;
-import com.ponagayba.projects.controller.admin.question.AddQuestionPageController;
-import com.ponagayba.projects.controller.admin.question.QuestionsPageController;
+import com.ponagayba.projects.controller.admin.question.*;
 import com.ponagayba.projects.controller.admin.user.*;
 import com.ponagayba.projects.controller.test.*;
 import com.ponagayba.projects.controller.user.*;
@@ -154,5 +152,17 @@ public class Factory {
             throw new RuntimeException("Driver has not been initialized");
         }
         return connection;
+    }
+
+    public static Controller getDeleteQuestionController() {
+        return new DeleteQuestionController();
+    }
+
+    public static Controller getEditQuestionPageController() {
+        return new EditQuestionPageController();
+    }
+
+    public static Controller getEditQuestionController() {
+        return new EditQuestionController();
     }
 }

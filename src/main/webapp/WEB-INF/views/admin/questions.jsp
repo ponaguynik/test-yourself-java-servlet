@@ -47,10 +47,10 @@
             </td>
             <td class="actions">
                 <a class="edit-btn" href="
-                    <c:url value="/admin/questions/manage-question">
+                    <c:url value="/admin/questions/edit">
                             <c:param name="questionId" value="${question.id}"/>
                     </c:url>">Edit</a>
-                <form id="deleteQuestionForm${question.id}" action="<c:url value="/admin/questions/delete-question"/>" method="post">
+                <form id="deleteQuestionForm${question.id}" action="<c:url value="/admin/questions/delete"/>" method="post">
                     <input type="hidden" name="questionId" value="${question.id}">
                 </form>
                 <button class="delete-btn" name="deleteQuestion" onclick="deleteConf(${question.id})" value="delete">Delete</button>
