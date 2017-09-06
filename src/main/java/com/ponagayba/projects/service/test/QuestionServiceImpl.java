@@ -5,7 +5,6 @@ import com.ponagayba.projects.model.test.Question;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 

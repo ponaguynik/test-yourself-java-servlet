@@ -1,10 +1,10 @@
 package com.ponagayba.projects.factory;
 
-import com.ponagayba.projects.controller.*;
 import com.ponagayba.projects.controller.admin.question.*;
 import com.ponagayba.projects.controller.admin.user.*;
 import com.ponagayba.projects.controller.test.*;
 import com.ponagayba.projects.controller.user.*;
+import com.ponagayba.projects.controller.Controller;
 import com.ponagayba.projects.dao.test.QuestionDAO;
 import com.ponagayba.projects.dao.test.QuestionDAOImpl;
 import com.ponagayba.projects.dao.test.TestResultDAO;
@@ -18,6 +18,7 @@ import com.ponagayba.projects.service.user.RoleService;
 import com.ponagayba.projects.service.user.RoleServiceImpl;
 import com.ponagayba.projects.service.user.UserService;
 import com.ponagayba.projects.service.user.UserServiceImpl;
+import com.ponagayba.projects.controller.HomePageController;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
